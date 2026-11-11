@@ -230,6 +230,14 @@
   }
   const fecCand = (id) => `https://www.fec.gov/data/candidate/${id}/`;
   const fecCmte = (id) => `https://www.fec.gov/data/committee/${id}/`;
+  // "Report a problem": opens a pre-filled GitHub issue on the site's repository (or SITE.reportUrl, e.g. a form)
+  const REPORT = SITE.reportUrl || ((SITE.githubUrl || "https://github.com/prodemocracy/prodemocracy.github.io").replace(/\/$/, "") + "/issues/new");
+  function reportHref(subject) {
+    if (!REPORT.includes("github.com")) return REPORT;
+    const body = `Page: ${location.href}\n\nWhat looks wrong (which line, amount or date):\n\n\nWhat the FEC record shows (paste the FEC link if you have it):\n\n`;
+    return `${REPORT}?title=${encodeURIComponent("Possible error: " + subject)}&body=${encodeURIComponent(body)}`;
+  }
+  const reportNote = (subject) => `<p class="muted small report">Something look wrong? <a href="${esc(reportHref(subject))}" target="_blank" rel="noopener">Report a problem ↗</a>. Include the line and its FEC link if you can (a free GitHub account is needed to post).</p>`;
 
   /* ---------- transactions & FEC sources (loaded on demand) ---------- */
   const TX_TYPE = ["Contribution", "Earmarked contribution", "Refund from campaign", "Void / correction"];
@@ -453,7 +461,8 @@
           <td class="hide-sm small muted">${r.cyc.length > 4 ? r.cyc[0] + "–" + r.cyc[r.cyc.length - 1] : r.cyc.join(", ")}</td>
           ${r.v.map((v) => `<td class="num">${v ? money(v, true) : "—"}</td>`).join("")}<td class="num"><b>${money(sum3(r.v), true)}</b></td></tr>`).join("")}</tbody></table></section>
       <p class="muted small">Contributions include earmarked donations that a PAC passed through to the campaign. Money given to a joint fundraising committee appears here only when the filing named this candidate.</p>
-      ${PD.meta.tx ? `<section class="panel" id="p-tx"><div class="panel-head"><div><h2>Every transaction behind these numbers</h2><p>Each line links to the page of the PAC's own FEC report where it appears. ${esc(filterNote())}</p></div></div><div id="tx-box"></div></section>` : ""}`;
+      ${PD.meta.tx ? `<section class="panel" id="p-tx"><div class="panel-head"><div><h2>Every transaction behind these numbers</h2><p>Each line links to the page of the PAC's own FEC report where it appears. ${esc(filterNote())}</p></div></div><div id="tx-box"></div></section>` : ""}
+      ${reportNote(p.n)}`;
     const bands = firstC < 0 ? [] : cycleBands((ci) => acc[ci]).slice(firstC, lastC + 1);
     if (bands.length) columns($("#c-pc"), bands, { aria: "By election cycle", highlight: state.cycle !== null ? state.cycle - firstC : null, height: 220 });
     tableToggle($("#p-pc"), ["Cycle", ...CH_SHORT, "Total"], bands.filter((b) => sum3(b.v)).map((b) => [b.title, ...b.v.map((v) => money(v, true)), money(sum3(b.v), true)]));
@@ -517,7 +526,8 @@
           <td><span class="party">${x.p.p}</span></td>${x.v.map((v) => `<td class="num">${v ? money(v, true) : "—"}</td>`).join("")}<td class="num"><b>${money(sum3(x.v), true)}</b></td></tr>`).join("")}</tbody></table></section>
       ${recips.length > 200 ? `<p class="muted small">Showing the top 200 of ${recips.length.toLocaleString("en-US")}. The downloads have all of them.</p>` : ""}
       <p class="muted small">Open a politician to see each of this PAC's transactions to them, with a link to the FEC report page for every line.</p>
-      ${PD.meta.tx && Math.abs(tt.notTied) >= 1 ? `<section class="panel"><div class="panel-head"><div><h2>Money not tied to one politician</h2><p>Payments to parties, joint fundraising committees and other PACs whose filings didn't name a candidate. The rest of this PAC's money is listed on each politician's page. Each line links to the FEC report page.</p></div></div><div id="tx-box"></div></section>` : ""}`;
+      ${PD.meta.tx && Math.abs(tt.notTied) >= 1 ? `<section class="panel"><div class="panel-head"><div><h2>Money not tied to one politician</h2><p>Payments to parties, joint fundraising committees and other PACs whose filings didn't name a candidate. The rest of this PAC's money is listed on each politician's page. Each line links to the FEC report page.</p></div></div><div id="tx-box"></div></section>` : ""}
+      ${reportNote(k.n)}`;
     const bands = firstC < 0 ? [] : cycleBands((ci) => acc[ci]).slice(firstC, lastC + 1);
     if (bands.length) columns($("#c-kc"), bands, { aria: "By election cycle", highlight: state.cycle !== null ? state.cycle - firstC : null, height: 220 });
     tableToggle($("#p-kc"), ["Cycle", ...CH_SHORT, "Total"], bands.filter((b) => sum3(b.v)).map((b) => [b.title, ...b.v.map((v) => money(v, true)), money(sum3(b.v), true)]));
@@ -582,7 +592,7 @@
       <p>Individual donors are never named anywhere on this site or in its files. Federal law restricts using donor names from FEC reports, and this project is about money going to politicians.</p>
 
       <h2>Independence</h2>
-      <p>This is an independent project. It isn't affiliated with any campaign, party, PAC or advocacy group, and it takes no position on candidates or on Israel policy. Every number can be checked against the source: each politician and PAC page lists the transactions behind its totals, and every line links to the page of the committee's own FEC report where it was filed. The FEC has no page images online for reports filed before 1993, so for those lines (mostly the 1990 and 1992 cycles) the link opens the FEC's own itemized record of the transaction instead: its database search, filtered to that PAC and date. Recipient names on this site are each committee's official FEC name, which can differ slightly from how a PAC wrote it on its report.${SITE.contactEmail ? ` Spot an error? Email <a href="mailto:${esc(SITE.contactEmail)}">${esc(SITE.contactEmail)}</a>.` : ""}</p>
+      <p>This is an independent project. It isn't affiliated with any campaign, party, PAC or advocacy group, and it takes no position on candidates or on Israel policy. Every number can be checked against the source: each politician and PAC page lists the transactions behind its totals, and every line links to the page of the committee's own FEC report where it was filed. The FEC has no page images online for reports filed before 1993, so for those lines (mostly the 1990 and 1992 cycles) the link opens the FEC's own itemized record of the transaction instead: its database search, filtered to that PAC and date. Recipient names on this site are each committee's official FEC name, which can differ slightly from how a PAC wrote it on its report. Spot an error? <a href="${esc(reportHref("Data & methods"))}" target="_blank" rel="noopener">Report a problem</a> (a free GitHub account is needed)${SITE.contactEmail ? `, or email <a href="mailto:${esc(SITE.contactEmail)}">${esc(SITE.contactEmail)}</a>` : ""}. Reports and fixes are public, so anyone can see what was corrected.</p>
     </div>`;
   }
 
@@ -595,6 +605,7 @@
     if (SITE.substackUrl) fl.push(`<a href="${esc(SITE.substackUrl)}" target="_blank" rel="noopener">Newsletter</a>`);
     if (SITE.githubUrl) fl.push(`<a href="${esc(SITE.githubUrl)}" target="_blank" rel="noopener">GitHub</a>`);
     fl.push(`<a href="#/about">Data &amp; methods</a>`);
+    fl.push(`<a id="report-foot" href="${esc(reportHref("site"))}" target="_blank" rel="noopener">Report a problem</a>`);
     $("#foot-links").innerHTML = fl.join(" · ");
     const fc = $("#f-cycle");
     fc.innerHTML = `<option value="">All cycles (${cycles[0] - 1}–${cycles[cycles.length - 1]})</option>` +
@@ -622,6 +633,8 @@
     else if (state.view === "pac") viewPac(state.id);
     else if (state.view === "about") viewAbout();
     else viewOverview();
+    const rf = $("#report-foot");
+    if (rf) rf.href = reportHref((($("h1", main) || {}).textContent || "site").trim());
   }
 
   let lastW = window.innerWidth, rt;
