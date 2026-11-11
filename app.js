@@ -255,11 +255,12 @@
       loadScript(`data/tx/${txBucket(key)}.js`, (ok2) => cb(ok2 ? ((PD.tx && PD.tx[key]) || []) : null));
     });
   }
-  function srcLink(src, kid) {
+  function srcLink(src, kid, cycle) {
     if (!src) return "";
-    const url = src[0] === "f" ? `https://docquery.fec.gov/cgi-bin/forms/${kid}/${src.slice(1)}/`
+    const url = src === "c" ? `https://www.fec.gov/data/committee/${kid}/?cycle=${cycle}&tab=filings`
+      : src[0] === "f" ? `https://docquery.fec.gov/cgi-bin/forms/${kid}/${src.slice(1)}/`
       : src.startsWith("http") ? src : `https://docquery.fec.gov/cgi-bin/fecimg/?${src}`;
-    const label = src[0] === "f" ? "Filing" : "Report page";
+    const label = src === "c" ? "Filings" : src[0] === "f" ? "Filing" : "Report page";
     return `<a href="${esc(url)}" target="_blank" rel="noopener"><span class="hide-sm">${label}</span><span class="show-sm">View</span> ↗</a>`;
   }
   const fmtDate = (d) => d && d.length === 8 ? `${d.slice(4, 6)}/${d.slice(6)}/${d.slice(0, 4)}` : "—";
@@ -284,9 +285,9 @@
         const sel = opts.showPac && kset.length > 1 ? `<label class="small muted">PAC <select id="tx-pac"><option value="">All PACs (${kset.length})</option>${
           kset.map((ki) => `<option value="${ki}" ${ki === pac ? "selected" : ""}>${esc(K[ki].n)}</option>`).join("")}</select></label>` : "";
         box.innerHTML = `<div class="tx-head">${sel}<span class="small muted">${list.length.toLocaleString("en-US")} line${list.length === 1 ? "" : "s"} · sum ${money(total, true)}${
-          pac === null && opts.expect != null ? (Math.abs(total - opts.expect) < 1 ? " · matches the total above" : ` · differs from the total above by ${money(total - opts.expect, true)}`) : ""}</span></div>
+          pac === null && opts.expect != null ? (Math.abs(total - opts.expect) < 1 ? ` · matches ${opts.expectLabel || "the total above"}` : ` · differs from ${opts.expectLabel || "the total above"} by ${money(total - opts.expect, true)}`) : ""}</span></div>
           ${list.length ? `<div class="tx-scroll"><table class="tx"><thead><tr><th>Date</th>${opts.showPac ? "<th>PAC</th>" : ""}<th class="hide-sm">To</th><th class="hide-sm">Type</th><th class="num">Amount</th><th>Source</th></tr></thead><tbody>${
-          list.slice(0, shown).map((r) => `<tr><td class="nowrap">${fmtDate(r[3])}${opts.showPac ? "" : `<div class="small muted show-sm">${txType(r[2], r[6], r[4])}</div>`}</td>${opts.showPac ? `<td>${esc(K[r[1]].n)}<div class="small muted show-sm">${txType(r[2], r[6], r[4])}</div></td>` : ""}<td class="hide-sm small">${r[7] >= 0 ? esc(R[r[7]][1]) : "—"}</td><td class="hide-sm small">${txType(r[2], r[6], r[4])}</td><td class="num nowrap">${money(r[4], true)}</td><td class="small nowrap">${srcLink(r[5], K[r[1]].id)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="muted small">No lines for these filters.</p>`}
+          list.slice(0, shown).map((r) => `<tr><td class="nowrap">${fmtDate(r[3])}${opts.showPac ? "" : `<div class="small muted show-sm">${txType(r[2], r[6], r[4])}</div>`}</td>${opts.showPac ? `<td>${esc(K[r[1]].n)}<div class="small muted show-sm">${txType(r[2], r[6], r[4])}</div></td>` : ""}<td class="hide-sm small">${r[7] >= 0 ? esc(R[r[7]][1]) : "—"}</td><td class="hide-sm small">${txType(r[2], r[6], r[4])}</td><td class="num nowrap">${money(r[4], true)}</td><td class="small nowrap">${srcLink(r[5], K[r[1]].id, cycles[r[0]])}</td></tr>`).join("")}</tbody></table></div>` : `<p class="muted small">No lines for these filters.</p>`}
           ${list.length > shown ? `<button class="linkish" type="button" id="tx-more">${list.length - shown <= 250 ? `Show the other ${(list.length - shown).toLocaleString("en-US")}` : `Show 250 more (${(list.length - shown).toLocaleString("en-US")} not shown yet)`}</button>` : ""}`;
         const ps = box.querySelector("#tx-pac");
         if (ps) ps.addEventListener("change", () => { pac = ps.value === "" ? null : parseInt(ps.value, 10); shown = 100; draw(); });
@@ -510,12 +511,12 @@
           <td><span class="party">${x.p.p}</span></td>${x.v.map((v) => `<td class="num">${v ? money(v, true) : "—"}</td>`).join("")}<td class="num"><b>${money(sum3(x.v), true)}</b></td></tr>`).join("")}</tbody></table></section>
       ${recips.length > 200 ? `<p class="muted small">Showing the top 200 of ${recips.length.toLocaleString("en-US")}. The downloads have all of them.</p>` : ""}
       <p class="muted small">Open a politician to see each of this PAC's transactions to them, with a link to the FEC report page for every line.</p>
-      ${PD.meta.tx && Math.abs(tt.notTied) >= 1 ? `<section class="panel"><div class="panel-head"><div><h2>Money not tied to one politician</h2><p>Payments to parties, joint fundraising committees and other committees whose filings didn't name a candidate. Each line links to the FEC report page.</p></div></div><div id="tx-box"></div></section>` : ""}`;
+      ${PD.meta.tx && Math.abs(tt.notTied) >= 1 ? `<section class="panel"><div class="panel-head"><div><h2>Money not tied to one politician</h2><p>Payments to parties, joint fundraising committees and other PACs whose filings didn't name a candidate. The rest of this PAC's money is listed on each politician's page. Each line links to the FEC report page.</p></div></div><div id="tx-box"></div></section>` : ""}`;
     const bands = firstC < 0 ? [] : cycleBands((ci) => acc[ci]).slice(firstC, lastC + 1);
     if (bands.length) columns($("#c-kc"), bands, { aria: "By election cycle", highlight: state.cycle !== null ? state.cycle - firstC : null, height: 220 });
     tableToggle($("#p-kc"), ["Cycle", ...CH_SHORT, "Total"], bands.filter((b) => sum3(b.v)).map((b) => [b.title, ...b.v.map((v) => money(v, true)), money(sum3(b.v), true)]));
     main.querySelectorAll("tr.clickable").forEach((tr) => tr.addEventListener("click", (e) => { if (e.target.tagName !== "A") location.hash = tr.querySelector("a").getAttribute("href"); }));
-    if (PD.meta.tx && $("#tx-box")) txPanel($("#tx-box"), "K:" + k.id, { showPac: false, expect: tt.notTied });
+    if (PD.meta.tx && $("#tx-box")) txPanel($("#tx-box"), "K:" + k.id, { showPac: false, expect: tt.notTied, expectLabel: `the ${money(tt.notTied, true)} not tied to one politician in the Total box` });
   }
 
   function viewAbout() {
@@ -575,7 +576,7 @@
       <p>Individual donors are never named anywhere on this site or in its files. Federal law restricts using donor names from FEC reports, and this project is about money going to politicians.</p>
 
       <h2>Independence</h2>
-      <p>This is an independent project. It isn't affiliated with any campaign, party, PAC or advocacy group, and it takes no position on candidates or on Israel policy. Every number can be checked against the source: each politician and PAC page lists the transactions behind its totals, and every line links to the page of the committee's own FEC report where it was filed.${SITE.contactEmail ? ` Spot an error? Email <a href="mailto:${esc(SITE.contactEmail)}">${esc(SITE.contactEmail)}</a>.` : ""}</p>
+      <p>This is an independent project. It isn't affiliated with any campaign, party, PAC or advocacy group, and it takes no position on candidates or on Israel policy. Every number can be checked against the source: each politician and PAC page lists the transactions behind its totals, and every line links to the page of the committee's own FEC report where it was filed. The FEC has no page images online for reports filed before 1993, so for those lines (mostly the 1990 and 1992 cycles) the link opens the PAC's list of FEC reports for that cycle instead. The amounts still come from the FEC's itemized records.${SITE.contactEmail ? ` Spot an error? Email <a href="mailto:${esc(SITE.contactEmail)}">${esc(SITE.contactEmail)}</a>.` : ""}</p>
     </div>`;
   }
 
