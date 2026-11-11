@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAC Money Tracker</title>
+<meta name="description" content="Pro-Israel PAC money in U.S. federal elections, by politician and by date, from official FEC filings.">
+<meta property="og:title" content="PAC Money Tracker">
+<meta property="og:description" content="Pro-Israel PAC money in U.S. federal elections, by politician and by date, from official FEC filings.">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="#/" id="brand">PAC Money Tracker</a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#/" data-view="overview">Overview</a>
+      <a href="#/politicians" data-view="politicians">Politicians</a>
+      <a href="#/pacs" data-view="pacs">PACs</a>
+      <a href="#/about" data-view="about">Data &amp; methods</a>
+    </nav>
+    <a class="support" id="support-link" href="#" hidden>Support this project</a>
+  </div>
+</header>
+
+<div class="filters-bar">
+  <div class="wrap filters" role="group" aria-label="Filters">
+    <label>Election cycle
+      <select id="f-cycle"></select>
+    </label>
+    <label>PAC group
+      <select id="f-group"></select>
+    </label>
+    <span class="filter-note" id="filter-note"></span>
+  </div>
+</div>
+
+<main class="wrap" id="main" tabindex="-1">
+  <noscript><p>This site needs JavaScript to show the data. The raw files are in the <a href="downloads/">downloads</a> folder.</p></noscript>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <p id="foot-text">Source: Federal Election Commission filings (api.open.fec.gov). Not affiliated with any campaign, party, or PAC.</p>
+    <p id="foot-links"></p>
+  </div>
+</footer>
+
+<div class="tooltip" id="tooltip" role="status" aria-live="polite" hidden></div>
+
+<script src="config.js"></script>
+<script src="data/meta.js"></script>
+<script src="data/committees.js"></script>
+<script src="data/overall.js"></script>
+<script src="data/monthly.js"></script>
+<script src="data/politicians.js"></script>
+<script src="data/accuracy.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

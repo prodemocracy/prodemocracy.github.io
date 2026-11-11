@@ -1,0 +1,906 @@
+committee_id,committee,pac_group,cycle,channel,to_a_politician,amount
+C00247403,NORPAC,NORPAC,1990,contribution,yes,16750.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,1990,contribution,no,25500.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,1990,contribution,yes,206000.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,1990,contribution,no,20000.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,1990,contribution,yes,953500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,1990,contribution,no,4500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,1990,contribution,yes,103979.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,1990,contribution,no,5000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,191000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,1990,contribution,no,1000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,1990,contribution,yes,130000.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,1990,contribution,no,4500.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,1990,contribution,yes,166379.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,1990,contribution,no,15500.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,262375.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,151500.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,1990,contribution,yes,76000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,90200.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,1990,contribution,yes,27391.0
+C00158865,Hudson Valley PAC,Other pro-Israel PACs,1990,contribution,no,5000.0
+C00158865,Hudson Valley PAC,Other pro-Israel PACs,1990,contribution,yes,239754.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,1990,contribution,no,2000.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,1990,contribution,yes,147250.0
+C00131557,Heartland PAC,Other pro-Israel PACs,1990,contribution,no,1000.0
+C00131557,Heartland PAC,Other pro-Israel PACs,1990,contribution,yes,70750.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,1990,contribution,yes,39500.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,16750.0
+C00187526,CityPAC,Other pro-Israel PACs,1990,contribution,yes,70500.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,27300.0
+C00199950,MOPAC,Other pro-Israel PACs,1990,contribution,no,1000.0
+C00199950,MOPAC,Other pro-Israel PACs,1990,contribution,yes,83300.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,1990,contribution,yes,105250.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,1990,contribution,yes,75250.0
+C00203182,Women's Pro-Israel National Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,120916.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,1990,contribution,no,6000.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,157250.0
+C00155713,BAYPAC,Other pro-Israel PACs,1990,contribution,yes,10867.0
+C00189696,Multi-Issue Political Action Committee (MI-PAC),Other pro-Israel PACs,1990,contribution,no,7500.0
+C00189696,Multi-Issue Political Action Committee (MI-PAC),Other pro-Israel PACs,1990,contribution,yes,106300.0
+C00169136,Garden State Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,87450.0
+C00148874,Arizona Politically Interested Citizens,Other pro-Israel PACs,1990,contribution,yes,29750.0
+C00143891,Roundtable Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,42000.0
+C00142422,Congressional Action Committee of Texas,Other pro-Israel PACs,1990,contribution,yes,37000.0
+C00245316,MinnPAC,Other pro-Israel PACs,1990,contribution,yes,15000.0
+C00222844,Silver State PAC,Other pro-Israel PACs,1990,contribution,no,500.0
+C00222844,Silver State PAC,Other pro-Israel PACs,1990,contribution,yes,19250.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,1990,contribution,yes,700.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,1990,ie_support,yes,1179.0
+C00221994,Chai Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,7250.0
+C00182253,East Midwood Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,7850.0
+C00149377,Massachusetts Congressional Campaign Committee,Other pro-Israel PACs,1990,contribution,yes,10000.0
+C00154492,South Carolinians for Representative Government,Other pro-Israel PACs,1990,contribution,yes,4500.0
+C00241521,United Americans in Israel,Other pro-Israel PACs,1990,contribution,yes,7400.0
+C00194993,South Florida Caucus,Other pro-Israel PACs,1990,contribution,yes,4000.0
+C00199851,Pacific PAC,Other pro-Israel PACs,1990,contribution,yes,10000.0
+C00200634,Virginia Congressional Committee,Other pro-Israel PACs,1990,contribution,yes,836.0
+C00211326,Stat PAC Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,200.0
+C00162628,Connecticut Good Government Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,3000.0
+C00101881,National Bipartisan Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,2850.0
+C00162651,For Integrity in Government Political Action Committee,Other pro-Israel PACs,1990,contribution,yes,2500.0
+C00117259,Chicagoans for a Better Congress,Other pro-Israel PACs,1990,contribution,yes,301.0
+C00247403,NORPAC,NORPAC,1992,contribution,no,1000.0
+C00247403,NORPAC,NORPAC,1992,contribution,yes,136750.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,1992,contribution,no,6000.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,1992,contribution,yes,205000.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,1992,contribution,no,15000.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,1992,contribution,yes,685000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,1992,contribution,no,2000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,1992,contribution,yes,143949.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,1992,contribution,no,5000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,192750.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,1992,contribution,yes,158250.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,1992,contribution,yes,178550.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,1992,contribution,no,10500.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,202020.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,209000.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,1992,contribution,yes,72500.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,70000.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,1992,contribution,yes,5350.0
+C00158865,Hudson Valley PAC,Other pro-Israel PACs,1992,contribution,no,4000.0
+C00158865,Hudson Valley PAC,Other pro-Israel PACs,1992,contribution,yes,263465.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,1992,contribution,yes,166750.0
+C00131557,Heartland PAC,Other pro-Israel PACs,1992,contribution,no,3000.0
+C00131557,Heartland PAC,Other pro-Israel PACs,1992,contribution,yes,85250.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,1992,contribution,yes,75500.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,19750.0
+C00187526,CityPAC,Other pro-Israel PACs,1992,contribution,yes,84000.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,36500.0
+C00199950,MOPAC,Other pro-Israel PACs,1992,contribution,yes,68300.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,1992,contribution,no,2500.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,1992,contribution,yes,140750.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,1992,contribution,yes,41250.0
+C00203182,Women's Pro-Israel National Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,157050.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,95000.0
+C00155713,BAYPAC,Other pro-Israel PACs,1992,contribution,yes,6600.0
+C00189696,Multi-Issue Political Action Committee (MI-PAC),Other pro-Israel PACs,1992,contribution,yes,88750.0
+C00169136,Garden State Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,59950.0
+C00148874,Arizona Politically Interested Citizens,Other pro-Israel PACs,1992,contribution,yes,53900.0
+C00143891,Roundtable Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,30000.0
+C00142422,Congressional Action Committee of Texas,Other pro-Israel PACs,1992,contribution,yes,31150.0
+C00245316,MinnPAC,Other pro-Israel PACs,1992,contribution,yes,33250.0
+C00222844,Silver State PAC,Other pro-Israel PACs,1992,contribution,yes,29557.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,1992,contribution,yes,2500.0
+C00256594,Pax Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,40750.0
+C00221994,Chai Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,6000.0
+C00182253,East Midwood Political Action Committee,Other pro-Israel PACs,1992,contribution,no,1000.0
+C00182253,East Midwood Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,2950.0
+C00149377,Massachusetts Congressional Campaign Committee,Other pro-Israel PACs,1992,contribution,yes,-1000.0
+C00262071,Westchester Allied PAC,Other pro-Israel PACs,1992,contribution,yes,15000.0
+C00154492,South Carolinians for Representative Government,Other pro-Israel PACs,1992,contribution,yes,10150.0
+C00252627,Seph PAC,Other pro-Israel PACs,1992,contribution,yes,13013.0
+C00182972,Tennesseans for Better Government,Other pro-Israel PACs,1992,contribution,yes,2000.0
+C00241521,United Americans in Israel,Other pro-Israel PACs,1992,contribution,yes,4000.0
+C00194993,South Florida Caucus,Other pro-Israel PACs,1992,contribution,no,1000.0
+C00194993,South Florida Caucus,Other pro-Israel PACs,1992,contribution,yes,5550.0
+C00200634,Virginia Congressional Committee,Other pro-Israel PACs,1992,contribution,yes,850.0
+C00211326,Stat PAC Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,5000.0
+C00162628,Connecticut Good Government Political Action Committee,Other pro-Israel PACs,1992,contribution,yes,1750.0
+C00247403,NORPAC,NORPAC,1994,contribution,yes,57750.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,1994,contribution,no,9250.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,1994,contribution,yes,105408.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,1994,contribution,no,4000.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,1994,contribution,yes,224000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,1994,contribution,no,2500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,1994,contribution,yes,152550.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,1994,contribution,no,2500.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,140000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,1994,contribution,yes,125350.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,1994,contribution,yes,167000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,1994,contribution,no,3570.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,152950.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,126000.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,1994,contribution,yes,81500.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,73000.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,1994,contribution,yes,6625.0
+C00158865,Hudson Valley PAC,Other pro-Israel PACs,1994,contribution,yes,111400.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,1994,contribution,yes,93250.0
+C00131557,Heartland PAC,Other pro-Israel PACs,1994,contribution,yes,85500.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,1994,contribution,yes,49000.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,18500.0
+C00187526,CityPAC,Other pro-Israel PACs,1994,contribution,yes,46525.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,15500.0
+C00199950,MOPAC,Other pro-Israel PACs,1994,contribution,yes,50000.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,1994,contribution,yes,98000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,1994,contribution,yes,59650.0
+C00203182,Women's Pro-Israel National Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,118250.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,1994,contribution,no,1500.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,46000.0
+C00155713,BAYPAC,Other pro-Israel PACs,1994,contribution,yes,6052.0
+C00189696,Multi-Issue Political Action Committee (MI-PAC),Other pro-Israel PACs,1994,contribution,yes,6750.0
+C00169136,Garden State Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,40000.0
+C00291922,California PAC,Other pro-Israel PACs,1994,contribution,yes,8000.0
+C00148874,Arizona Politically Interested Citizens,Other pro-Israel PACs,1994,contribution,yes,1000.0
+C00143891,Roundtable Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,9500.0
+C00245316,MinnPAC,Other pro-Israel PACs,1994,contribution,yes,18250.0
+C00222844,Silver State PAC,Other pro-Israel PACs,1994,contribution,yes,17810.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,1994,contribution,yes,4550.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,1994,ie_support,yes,4780.0
+C00256594,Pax Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,14250.0
+C00221994,Chai Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,13000.0
+C00182253,East Midwood Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,3500.0
+C00149377,Massachusetts Congressional Campaign Committee,Other pro-Israel PACs,1994,contribution,yes,5500.0
+C00182972,Tennesseans for Better Government,Other pro-Israel PACs,1994,contribution,yes,8500.0
+C00194993,South Florida Caucus,Other pro-Israel PACs,1994,contribution,yes,500.0
+C00200634,Virginia Congressional Committee,Other pro-Israel PACs,1994,contribution,yes,236.0
+C00211326,Stat PAC Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,500.0
+C00162628,Connecticut Good Government Political Action Committee,Other pro-Israel PACs,1994,contribution,yes,250.0
+C00247403,NORPAC,NORPAC,1996,contribution,no,5000.0
+C00247403,NORPAC,NORPAC,1996,contribution,yes,68322.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,1996,contribution,no,6000.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,1996,contribution,yes,94725.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,1996,contribution,no,20000.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,1996,contribution,yes,590000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,1996,contribution,no,7500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,1996,contribution,yes,101050.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,1996,contribution,yes,93000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,1996,contribution,no,1000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,1996,contribution,yes,58250.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,1996,contribution,yes,148250.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,1996,contribution,no,3600.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,1996,contribution,yes,144225.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,1996,contribution,yes,114000.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,1996,contribution,yes,77400.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,1996,contribution,no,7000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,1996,contribution,yes,56000.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,1996,contribution,yes,7084.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,1996,contribution,yes,107000.0
+C00131557,Heartland PAC,Other pro-Israel PACs,1996,contribution,yes,75000.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,1996,contribution,yes,72500.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,1996,contribution,yes,25500.0
+C00187526,CityPAC,Other pro-Israel PACs,1996,contribution,yes,46500.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,1996,contribution,yes,30250.0
+C00199950,MOPAC,Other pro-Israel PACs,1996,contribution,yes,79750.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,1996,contribution,yes,93000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,1996,contribution,no,250.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,1996,contribution,yes,39750.0
+C00203182,Women's Pro-Israel National Political Action Committee,Other pro-Israel PACs,1996,contribution,yes,87700.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,1996,contribution,no,500.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,1996,contribution,yes,27800.0
+C00155713,BAYPAC,Other pro-Israel PACs,1996,contribution,yes,6062.0
+C00169136,Garden State Political Action Committee,Other pro-Israel PACs,1996,contribution,yes,6500.0
+C00305607,Young Jewish Leadership Political Action Committee,Other pro-Israel PACs,1996,contribution,yes,16450.0
+C00291922,California PAC,Other pro-Israel PACs,1996,contribution,no,1500.0
+C00291922,California PAC,Other pro-Israel PACs,1996,contribution,yes,19780.0
+C00142422,Congressional Action Committee of Texas,Other pro-Israel PACs,1996,contribution,yes,9500.0
+C00222844,Silver State PAC,Other pro-Israel PACs,1996,contribution,yes,1000.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,1996,contribution,yes,3950.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,1996,ie_support,yes,2262.0
+C00182253,East Midwood Political Action Committee,Other pro-Israel PACs,1996,contribution,yes,3000.0
+C00149377,Massachusetts Congressional Campaign Committee,Other pro-Israel PACs,1996,contribution,yes,549.0
+C00200634,Virginia Congressional Committee,Other pro-Israel PACs,1996,contribution,yes,200.0
+C00154831,Georgia Citizens for Good Government,Other pro-Israel PACs,1996,contribution,yes,400.0
+C00247403,NORPAC,NORPAC,1998,contribution,yes,61750.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,1998,contribution,no,1000.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,1998,contribution,yes,168118.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,1998,contribution,yes,367500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,1998,contribution,yes,105000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,1998,contribution,yes,84500.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,1998,contribution,yes,57550.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,1998,contribution,yes,168000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,1998,contribution,yes,137650.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,1998,contribution,yes,116000.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,1998,contribution,yes,68000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,1998,contribution,yes,48500.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,1998,contribution,yes,17300.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,1998,contribution,no,500.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,1998,contribution,yes,102350.0
+C00131557,Heartland PAC,Other pro-Israel PACs,1998,contribution,yes,68500.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,1998,contribution,yes,69000.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,1998,contribution,yes,21500.0
+C00187526,CityPAC,Other pro-Israel PACs,1998,contribution,yes,25000.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,1998,contribution,yes,26750.0
+C00199950,MOPAC,Other pro-Israel PACs,1998,contribution,yes,90750.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,1998,contribution,yes,82000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,1998,contribution,yes,21500.0
+C00203182,Women's Pro-Israel National Political Action Committee,Other pro-Israel PACs,1998,contribution,yes,81200.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,1998,contribution,yes,20900.0
+C00155713,BAYPAC,Other pro-Israel PACs,1998,contribution,no,1055.0
+C00155713,BAYPAC,Other pro-Israel PACs,1998,contribution,yes,5250.0
+C00155713,BAYPAC,Other pro-Israel PACs,1998,ie_support,yes,625.0
+C00305607,Young Jewish Leadership Political Action Committee,Other pro-Israel PACs,1998,contribution,no,3000.0
+C00305607,Young Jewish Leadership Political Action Committee,Other pro-Israel PACs,1998,contribution,yes,20100.0
+C00291922,California PAC,Other pro-Israel PACs,1998,contribution,yes,10615.0
+C00302414,Northwest PAC,Other pro-Israel PACs,1998,contribution,yes,34000.0
+C00331306,Georgia Peach PAC,Other pro-Israel PACs,1998,contribution,yes,14500.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,1998,contribution,yes,3500.0
+C00182253,East Midwood Political Action Committee,Other pro-Israel PACs,1998,contribution,yes,3000.0
+C00182972,Tennesseans for Better Government,Other pro-Israel PACs,1998,contribution,yes,500.0
+C00200634,Virginia Congressional Committee,Other pro-Israel PACs,1998,contribution,yes,100.0
+C00247403,NORPAC,NORPAC,2000,contribution,no,500.0
+C00247403,NORPAC,NORPAC,2000,contribution,yes,51515.0
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2000,contribution,no,1000.0
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2000,contribution,yes,9000.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2000,contribution,no,226950.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2000,contribution,yes,322854.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2000,contribution,no,5000.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2000,contribution,yes,196750.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2000,contribution,no,4500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2000,contribution,yes,120750.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2000,contribution,no,2500.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2000,contribution,yes,83000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2000,contribution,yes,78750.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2000,contribution,no,5000.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2000,contribution,yes,146500.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2000,contribution,yes,138000.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,2000,contribution,yes,111500.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2000,contribution,yes,62000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2000,contribution,yes,22550.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2000,contribution,yes,25100.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,2000,contribution,yes,85600.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2000,contribution,yes,62000.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2000,contribution,yes,48500.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2000,contribution,yes,31000.0
+C00187526,CityPAC,Other pro-Israel PACs,2000,contribution,yes,53000.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2000,contribution,yes,25750.0
+C00199950,MOPAC,Other pro-Israel PACs,2000,contribution,no,3500.0
+C00199950,MOPAC,Other pro-Israel PACs,2000,contribution,yes,98550.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,2000,contribution,yes,62500.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2000,contribution,yes,16500.0
+C00203182,Women's Pro-Israel National Political Action Committee,Other pro-Israel PACs,2000,contribution,yes,59475.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,2000,contribution,yes,10500.0
+C00155713,BAYPAC,Other pro-Israel PACs,2000,contribution,yes,18460.0
+C00305607,Young Jewish Leadership Political Action Committee,Other pro-Israel PACs,2000,contribution,no,-2000.0
+C00305607,Young Jewish Leadership Political Action Committee,Other pro-Israel PACs,2000,contribution,yes,31500.0
+C00291922,California PAC,Other pro-Israel PACs,2000,contribution,no,1000.0
+C00291922,California PAC,Other pro-Israel PACs,2000,contribution,yes,17000.0
+C00302414,Northwest PAC,Other pro-Israel PACs,2000,contribution,no,1000.0
+C00302414,Northwest PAC,Other pro-Israel PACs,2000,contribution,yes,31500.0
+C00331306,Georgia Peach PAC,Other pro-Israel PACs,2000,contribution,yes,16500.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,2000,contribution,yes,8500.0
+C00221994,Chai Political Action Committee,Other pro-Israel PACs,2000,contribution,yes,672.0
+C00182253,East Midwood Political Action Committee,Other pro-Israel PACs,2000,contribution,yes,1000.0
+C00154492,South Carolinians for Representative Government,Other pro-Israel PACs,2000,contribution,yes,12.0
+C00200634,Virginia Congressional Committee,Other pro-Israel PACs,2000,contribution,yes,4750.0
+C00247403,NORPAC,NORPAC,2002,contribution,no,2000.0
+C00247403,NORPAC,NORPAC,2002,contribution,yes,261394.0
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2002,contribution,no,5000.0
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2002,contribution,yes,143400.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2002,contribution,no,169400.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2002,contribution,yes,295016.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2002,contribution,yes,255000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2002,contribution,no,2000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2002,contribution,yes,160250.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,141750.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2002,contribution,yes,132000.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2002,contribution,yes,158000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,202250.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,2002,contribution,no,500.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,164500.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2002,contribution,yes,102000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2002,contribution,no,1000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,39500.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,9000.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2002,contribution,yes,27736.0
+C00158865,Hudson Valley PAC,Other pro-Israel PACs,2002,contribution,yes,145000.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,2002,contribution,yes,107350.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2002,contribution,no,4500.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2002,contribution,yes,71000.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2002,contribution,no,2000.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2002,contribution,yes,62200.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,95500.0
+C00187526,CityPAC,Other pro-Israel PACs,2002,contribution,yes,56000.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,45500.0
+C00199950,MOPAC,Other pro-Israel PACs,2002,contribution,no,8000.0
+C00199950,MOPAC,Other pro-Israel PACs,2002,contribution,yes,104000.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,2002,contribution,yes,86000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2002,contribution,no,6000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2002,contribution,yes,50500.0
+C00203182,Women's Pro-Israel National Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,44100.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,17500.0
+C00155713,BAYPAC,Other pro-Israel PACs,2002,contribution,no,1000.0
+C00155713,BAYPAC,Other pro-Israel PACs,2002,contribution,yes,10650.0
+C00305607,Young Jewish Leadership Political Action Committee,Other pro-Israel PACs,2002,contribution,no,250.0
+C00305607,Young Jewish Leadership Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,13750.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,750.0
+C00291922,California PAC,Other pro-Israel PACs,2002,contribution,yes,21500.0
+C00302414,Northwest PAC,Other pro-Israel PACs,2002,contribution,yes,11000.0
+C00331306,Georgia Peach PAC,Other pro-Israel PACs,2002,contribution,yes,17250.0
+C00245316,MinnPAC,Other pro-Israel PACs,2002,contribution,no,3412.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,2002,contribution,yes,6000.0
+C00365429,Greater Los Angeles Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,42600.0
+C00182253,East Midwood Political Action Committee,Other pro-Israel PACs,2002,contribution,yes,1000.0
+C00182972,Tennesseans for Better Government,Other pro-Israel PACs,2002,contribution,yes,2000.0
+C00200634,Virginia Congressional Committee,Other pro-Israel PACs,2002,contribution,yes,1250.0
+C00247403,NORPAC,NORPAC,2004,contribution,no,95560.0
+C00247403,NORPAC,NORPAC,2004,contribution,yes,481473.0
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2004,contribution,no,17500.0
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2004,contribution,yes,131500.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2004,contribution,yes,443778.71
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2004,contribution,yes,281000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2004,contribution,no,-2000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2004,contribution,yes,222500.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2004,contribution,yes,154500.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2004,contribution,yes,125000.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2004,contribution,no,7074.01
+C00102368,The Desert Caucus,Other pro-Israel PACs,2004,contribution,yes,155500.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2004,contribution,no,-5000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2004,contribution,yes,221750.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,2004,contribution,yes,174250.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2004,contribution,yes,134000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2004,contribution,no,1000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2004,contribution,yes,51000.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2004,contribution,yes,115250.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2004,contribution,no,-1000.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2004,contribution,yes,47150.0
+C00158865,Hudson Valley PAC,Other pro-Israel PACs,2004,contribution,yes,213650.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,2004,contribution,no,12000.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,2004,contribution,yes,89000.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2004,contribution,no,3000.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2004,contribution,yes,49000.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2004,contribution,no,2000.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2004,contribution,yes,109000.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2004,contribution,yes,68500.0
+C00187526,CityPAC,Other pro-Israel PACs,2004,contribution,no,2900.0
+C00187526,CityPAC,Other pro-Israel PACs,2004,contribution,yes,84000.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2004,contribution,yes,60750.0
+C00199950,MOPAC,Other pro-Israel PACs,2004,contribution,no,-500.0
+C00199950,MOPAC,Other pro-Israel PACs,2004,contribution,yes,105500.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,2004,contribution,yes,67733.08
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2004,contribution,no,1000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2004,contribution,yes,90620.0
+C00203182,Women's Pro-Israel National Political Action Committee,Other pro-Israel PACs,2004,contribution,yes,4275.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,2004,contribution,yes,17750.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2004,contribution,yes,55000.0
+C00155713,BAYPAC,Other pro-Israel PACs,2004,contribution,no,200.0
+C00155713,BAYPAC,Other pro-Israel PACs,2004,contribution,yes,13650.0
+C00305607,Young Jewish Leadership Political Action Committee,Other pro-Israel PACs,2004,contribution,yes,32761.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2004,contribution,yes,1500.0
+C00291922,California PAC,Other pro-Israel PACs,2004,contribution,yes,19800.0
+C00302414,Northwest PAC,Other pro-Israel PACs,2004,contribution,yes,9500.0
+C00331306,Georgia Peach PAC,Other pro-Israel PACs,2004,contribution,yes,18500.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,2004,contribution,yes,7500.0
+C00365429,Greater Los Angeles Political Action Committee,Other pro-Israel PACs,2004,contribution,yes,11100.0
+C00200634,Virginia Congressional Committee,Other pro-Israel PACs,2004,contribution,yes,1700.0
+C00247403,NORPAC,NORPAC,2006,contribution,no,30149.0
+C00247403,NORPAC,NORPAC,2006,contribution,yes,808636.0
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2006,contribution,no,2000.0
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2006,contribution,yes,142500.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2006,contribution,no,5400.02
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2006,contribution,yes,449078.9
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2006,contribution,yes,196500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2006,contribution,yes,253000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2006,contribution,yes,185500.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2006,contribution,no,-2000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2006,contribution,yes,95500.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2006,contribution,no,5000.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2006,contribution,yes,189000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2006,contribution,yes,245000.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,2006,contribution,yes,283000.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2006,contribution,no,10000.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2006,contribution,yes,195000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2006,contribution,no,1000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2006,contribution,yes,59000.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2006,contribution,yes,135500.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2006,contribution,yes,38094.07
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2006,ie_support,yes,987.0
+C00158865,Hudson Valley PAC,Other pro-Israel PACs,2006,contribution,no,2160.0
+C00158865,Hudson Valley PAC,Other pro-Israel PACs,2006,contribution,yes,85000.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,2006,contribution,yes,76500.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2006,contribution,yes,60500.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2006,contribution,yes,62500.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2006,contribution,yes,61000.0
+C00187526,CityPAC,Other pro-Israel PACs,2006,contribution,yes,99000.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2006,contribution,yes,39500.0
+C00199950,MOPAC,Other pro-Israel PACs,2006,contribution,yes,100500.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,2006,contribution,yes,27000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2006,contribution,yes,85500.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,2006,contribution,no,-2000.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,2006,contribution,yes,32000.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2006,contribution,yes,17500.0
+C00155713,BAYPAC,Other pro-Israel PACs,2006,contribution,yes,21935.0
+C00305607,Young Jewish Leadership Political Action Committee,Other pro-Israel PACs,2006,contribution,yes,4200.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2006,contribution,yes,7225.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2006,ie_support,no,2347.84
+C00291922,California PAC,Other pro-Israel PACs,2006,contribution,no,-500.0
+C00291922,California PAC,Other pro-Israel PACs,2006,contribution,yes,6500.0
+C00302414,Northwest PAC,Other pro-Israel PACs,2006,contribution,yes,2000.0
+C00331306,Georgia Peach PAC,Other pro-Israel PACs,2006,contribution,no,40.5
+C00331306,Georgia Peach PAC,Other pro-Israel PACs,2006,contribution,yes,6750.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,2006,contribution,yes,4000.0
+C00365429,Greater Los Angeles Political Action Committee,Other pro-Israel PACs,2006,contribution,yes,1750.0
+C00182253,East Midwood Political Action Committee,Other pro-Israel PACs,2006,contribution,yes,3093.0
+C00441949,JStreetPAC,J Street,2008,contribution,no,6550.0
+C00441949,JStreetPAC,J Street,2008,contribution,yes,578699.52
+C00247403,NORPAC,NORPAC,2008,contribution,no,43236.0
+C00247403,NORPAC,NORPAC,2008,contribution,yes,1164105.8
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2008,contribution,yes,175500.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2008,contribution,no,3952.84
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2008,contribution,yes,292159.81
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2008,contribution,yes,199500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2008,contribution,yes,308495.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2008,contribution,yes,195250.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2008,contribution,yes,166800.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2008,contribution,no,5000.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2008,contribution,yes,180000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2008,contribution,yes,219000.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,2008,contribution,yes,271000.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2008,contribution,yes,181500.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2008,contribution,yes,74350.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2008,contribution,no,-5000.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2008,contribution,yes,144000.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2008,contribution,no,2000.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2008,contribution,yes,63273.75
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2008,ie_support,yes,3984.0
+C00158865,Hudson Valley PAC,Other pro-Israel PACs,2008,contribution,yes,129359.59
+C00138701,Americans for Good Government,Other pro-Israel PACs,2008,contribution,yes,66575.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2008,contribution,yes,39500.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2008,contribution,yes,9000.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2008,contribution,yes,105000.0
+C00187526,CityPAC,Other pro-Israel PACs,2008,contribution,no,-1000.0
+C00187526,CityPAC,Other pro-Israel PACs,2008,contribution,yes,91500.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2008,contribution,no,-977.89
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2008,contribution,yes,80000.0
+C00199950,MOPAC,Other pro-Israel PACs,2008,contribution,yes,61000.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,2008,contribution,no,549.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,2008,contribution,yes,50000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2008,contribution,yes,101500.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,2008,contribution,yes,28550.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2008,contribution,yes,50710.0
+C00155713,BAYPAC,Other pro-Israel PACs,2008,contribution,yes,23200.0
+C00305607,Young Jewish Leadership Political Action Committee,Other pro-Israel PACs,2008,contribution,yes,3200.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2008,contribution,no,150.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2008,contribution,yes,10970.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2008,ie_support,no,3268.0
+C00331306,Georgia Peach PAC,Other pro-Israel PACs,2008,contribution,no,70.0
+C00331306,Georgia Peach PAC,Other pro-Israel PACs,2008,contribution,yes,500.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,2008,contribution,yes,2000.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,2008,ie_support,yes,4780.18
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2008,contribution,yes,1005.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2008,ie_support,yes,6018.2
+C00441949,JStreetPAC,J Street,2010,contribution,no,2625.0
+C00441949,JStreetPAC,J Street,2010,contribution,yes,1535915.42
+C00247403,NORPAC,NORPAC,2010,contribution,no,198836.0
+C00247403,NORPAC,NORPAC,2010,contribution,yes,690558.0
+C00247403,NORPAC,NORPAC,2010,ie_support,yes,2000.0
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2010,contribution,no,13487.62
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2010,contribution,yes,181500.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2010,contribution,no,3059.63
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2010,contribution,yes,175713.65
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2010,contribution,yes,162000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2010,contribution,no,-5500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2010,contribution,yes,336768.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2010,contribution,no,-5000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2010,contribution,yes,227500.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2010,contribution,no,-14000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2010,contribution,yes,164950.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2010,contribution,no,-5000.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2010,contribution,yes,150000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2010,contribution,no,-5000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2010,contribution,yes,143000.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,2010,contribution,yes,213000.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2010,contribution,yes,227000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2010,contribution,no,2000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2010,contribution,yes,146500.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2010,contribution,yes,117350.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2010,contribution,yes,50850.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,2010,contribution,yes,38000.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2010,contribution,no,-1000.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2010,contribution,yes,77500.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2010,contribution,no,1100.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2010,contribution,yes,46600.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2010,contribution,yes,95000.0
+C00187526,CityPAC,Other pro-Israel PACs,2010,contribution,no,-1000.0
+C00187526,CityPAC,Other pro-Israel PACs,2010,contribution,yes,51500.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2010,contribution,yes,60500.0
+C00199950,MOPAC,Other pro-Israel PACs,2010,contribution,no,-430.0
+C00199950,MOPAC,Other pro-Israel PACs,2010,contribution,yes,51450.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,2010,contribution,no,1304.8
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,2010,contribution,yes,37500.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2010,contribution,no,32530.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2010,contribution,yes,80470.0
+C00473249,Grand Canyon State Caucus,Other pro-Israel PACs,2010,contribution,yes,56600.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,2010,contribution,no,-657.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,2010,contribution,yes,27750.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2010,contribution,no,5000.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2010,contribution,yes,35650.0
+C00155713,BAYPAC,Other pro-Israel PACs,2010,contribution,no,1000.0
+C00155713,BAYPAC,Other pro-Israel PACs,2010,contribution,yes,24600.0
+C00305607,Young Jewish Leadership Political Action Committee,Other pro-Israel PACs,2010,contribution,yes,1950.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2010,contribution,no,125.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2010,contribution,yes,1500.0
+C00331306,Georgia Peach PAC,Other pro-Israel PACs,2010,contribution,yes,8504.56
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,2010,contribution,yes,1000.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2010,contribution,no,75.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2010,contribution,yes,1000.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2010,ie_support,yes,1250.0
+C00441949,JStreetPAC,J Street,2012,contribution,no,4695.0
+C00441949,JStreetPAC,J Street,2012,contribution,yes,1834394.58
+C00247403,NORPAC,NORPAC,2012,contribution,no,330343.01
+C00247403,NORPAC,NORPAC,2012,contribution,yes,701673.46
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2012,contribution,no,25000.0
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2012,contribution,yes,128000.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2012,contribution,no,10187.96
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2012,contribution,yes,330533.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2012,contribution,yes,104500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2012,contribution,no,-1000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2012,contribution,yes,328050.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2012,contribution,no,5000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2012,contribution,yes,216000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2012,contribution,no,900.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2012,contribution,yes,150331.79
+C00102368,The Desert Caucus,Other pro-Israel PACs,2012,contribution,yes,140000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2012,contribution,yes,101600.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,2012,contribution,no,15064.63
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,2012,contribution,yes,118500.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2012,contribution,no,7500.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2012,contribution,yes,183000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2012,contribution,yes,96500.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2012,contribution,no,1000.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2012,contribution,yes,96050.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2012,contribution,yes,98800.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,2012,contribution,yes,28000.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2012,contribution,yes,45500.0
+C00492579,American Principles,Other pro-Israel PACs,2012,contribution,no,15000.0
+C00492579,American Principles,Other pro-Israel PACs,2012,contribution,yes,145975.08
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2012,contribution,no,-1100.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2012,contribution,yes,41900.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2012,contribution,yes,78000.0
+C00187526,CityPAC,Other pro-Israel PACs,2012,contribution,yes,23500.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2012,contribution,yes,66500.0
+C00199950,MOPAC,Other pro-Israel PACs,2012,contribution,no,2000.0
+C00199950,MOPAC,Other pro-Israel PACs,2012,contribution,yes,25750.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,2012,contribution,yes,15000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2012,contribution,yes,37193.8
+C00473249,Grand Canyon State Caucus,Other pro-Israel PACs,2012,contribution,yes,58500.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,2012,contribution,no,5000.0
+C00152579,Delaware Valley Political Action Committee,Other pro-Israel PACs,2012,contribution,yes,7000.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2012,contribution,no,4500.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2012,contribution,yes,43500.0
+C00155713,BAYPAC,Other pro-Israel PACs,2012,contribution,no,700.0
+C00155713,BAYPAC,Other pro-Israel PACs,2012,contribution,yes,33950.0
+C00302414,Northwest PAC,Other pro-Israel PACs,2012,contribution,yes,5000.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2012,contribution,no,100.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2012,contribution,yes,1500.0
+C00503250,Allies for Israel Political Action Committee,Other pro-Israel PACs,2012,contribution,yes,4250.0
+C00441949,JStreetPAC,J Street,2014,contribution,yes,2451743.38
+C00247403,NORPAC,NORPAC,2014,contribution,no,180493.5
+C00247403,NORPAC,NORPAC,2014,contribution,yes,1109082.41
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2014,contribution,yes,249500.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2014,contribution,no,15411.8
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2014,contribution,yes,354483.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2014,contribution,no,5500.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2014,contribution,yes,107500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2014,contribution,no,1000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2014,contribution,yes,279689.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2014,contribution,no,5000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2014,contribution,yes,194000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2014,contribution,no,-3000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2014,contribution,yes,106200.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2014,contribution,yes,130000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2014,contribution,yes,66500.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,2014,contribution,no,-5000.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,2014,contribution,yes,163012.46
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2014,contribution,no,7500.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2014,contribution,yes,183500.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2014,contribution,no,13500.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2014,contribution,yes,139450.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2014,contribution,no,15000.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2014,contribution,yes,104850.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2014,contribution,no,-1000.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2014,contribution,yes,55850.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,2014,contribution,yes,27000.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2014,contribution,yes,70000.0
+C00492579,American Principles,Other pro-Israel PACs,2014,contribution,no,850.0
+C00492579,American Principles,Other pro-Israel PACs,2014,contribution,yes,112200.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2014,contribution,yes,75000.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2014,contribution,no,22500.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2014,contribution,yes,77500.0
+C00187526,CityPAC,Other pro-Israel PACs,2014,contribution,yes,13500.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2014,contribution,no,1000.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2014,contribution,yes,71375.0
+C00199950,MOPAC,Other pro-Israel PACs,2014,contribution,yes,8000.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,2014,contribution,no,1000.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,2014,contribution,yes,15000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2014,contribution,yes,14700.0
+C00473249,Grand Canyon State Caucus,Other pro-Israel PACs,2014,contribution,yes,62500.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2014,contribution,no,9350.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2014,contribution,yes,60000.0
+C00155713,BAYPAC,Other pro-Israel PACs,2014,contribution,yes,25500.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2014,contribution,yes,8900.0
+C00557926,I-PAC Jax,Other pro-Israel PACs,2014,contribution,no,-4400.0
+C00557926,I-PAC Jax,Other pro-Israel PACs,2014,contribution,yes,21000.0
+C00302414,Northwest PAC,Other pro-Israel PACs,2014,contribution,yes,2000.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,2014,contribution,yes,1000.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2014,contribution,no,400.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2014,contribution,yes,1475.0
+C00441949,JStreetPAC,J Street,2016,contribution,no,3374.0
+C00441949,JStreetPAC,J Street,2016,contribution,yes,3668809.84
+C00247403,NORPAC,NORPAC,2016,contribution,no,262352.2
+C00247403,NORPAC,NORPAC,2016,contribution,yes,1506250.02
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2016,contribution,yes,272000.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2016,contribution,no,12659.77
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2016,contribution,yes,328620.58
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2016,contribution,yes,137500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2016,contribution,no,11000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2016,contribution,yes,204125.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2016,contribution,no,5000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2016,contribution,yes,165000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2016,contribution,yes,226750.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2016,contribution,yes,165000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2016,contribution,yes,74000.0
+C00236596,World Alliance for Israel Political Action Committee,Other pro-Israel PACs,2016,contribution,yes,60000.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2016,contribution,no,12500.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2016,contribution,yes,136000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2016,contribution,no,6000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2016,contribution,yes,125000.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2016,contribution,no,27500.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2016,contribution,yes,72500.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2016,contribution,yes,105127.5
+C00138701,Americans for Good Government,Other pro-Israel PACs,2016,contribution,no,2500.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,2016,contribution,yes,20000.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2016,contribution,no,2500.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2016,contribution,yes,73500.0
+C00492579,American Principles,Other pro-Israel PACs,2016,contribution,no,-175.0
+C00492579,American Principles,Other pro-Israel PACs,2016,contribution,yes,127400.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2016,contribution,yes,66300.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2016,contribution,no,12000.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2016,contribution,yes,35500.0
+C00187526,CityPAC,Other pro-Israel PACs,2016,contribution,no,2000.0
+C00187526,CityPAC,Other pro-Israel PACs,2016,contribution,yes,29700.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2016,contribution,yes,69400.0
+C00199950,MOPAC,Other pro-Israel PACs,2016,contribution,yes,3700.0
+C00148155,St. Louisans for Better Government,Other pro-Israel PACs,2016,contribution,yes,15000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2016,contribution,yes,10000.0
+C00473249,Grand Canyon State Caucus,Other pro-Israel PACs,2016,contribution,yes,65000.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2016,contribution,no,2000.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2016,contribution,yes,46100.0
+C00155713,BAYPAC,Other pro-Israel PACs,2016,contribution,yes,1500.0
+C00305607,Young Jewish Leadership Political Action Committee,Other pro-Israel PACs,2016,contribution,yes,2000.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2016,contribution,no,446.14
+C00152280,United Political Action Committee,Other pro-Israel PACs,2016,contribution,yes,18475.0
+C00557926,I-PAC Jax,Other pro-Israel PACs,2016,contribution,no,-2400.0
+C00557926,I-PAC Jax,Other pro-Israel PACs,2016,contribution,yes,22400.0
+C00232611,Political Action Committee of Cherry Hill New Jersey,Other pro-Israel PACs,2016,contribution,yes,2000.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2016,contribution,no,5100.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2016,contribution,yes,550.0
+C00441949,JStreetPAC,J Street,2018,contribution,no,3635.6
+C00441949,JStreetPAC,J Street,2018,contribution,yes,5067229.83
+C00247403,NORPAC,NORPAC,2018,contribution,no,228222.5
+C00247403,NORPAC,NORPAC,2018,contribution,yes,1351242.91
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2018,contribution,no,48192.58
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2018,contribution,yes,577172.92
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2018,contribution,no,4250.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2018,contribution,yes,391294.98
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2018,contribution,yes,54200.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2018,contribution,no,7839.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2018,contribution,yes,206500.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2018,contribution,no,-10000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2018,contribution,yes,168500.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2018,contribution,no,-9000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2018,contribution,yes,289700.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2018,contribution,yes,135000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2018,contribution,yes,70500.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2018,contribution,yes,115400.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2018,contribution,no,8000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2018,contribution,yes,89600.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2018,contribution,no,5800.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2018,contribution,yes,84200.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2018,contribution,yes,76400.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,2018,contribution,yes,14000.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2018,contribution,yes,60000.0
+C00492579,American Principles,Other pro-Israel PACs,2018,contribution,no,1800.0
+C00492579,American Principles,Other pro-Israel PACs,2018,contribution,yes,135200.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2018,contribution,yes,59500.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2018,contribution,no,10000.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2018,contribution,yes,126000.0
+C00187526,CityPAC,Other pro-Israel PACs,2018,contribution,yes,24000.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2018,contribution,no,2700.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2018,contribution,yes,49700.0
+C00199950,MOPAC,Other pro-Israel PACs,2018,contribution,yes,500.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2018,contribution,yes,48250.0
+C00473249,Grand Canyon State Caucus,Other pro-Israel PACs,2018,contribution,yes,58000.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2018,contribution,no,-7300.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2018,contribution,yes,36400.44
+C00152280,United Political Action Committee,Other pro-Israel PACs,2018,contribution,yes,10325.0
+C00557926,I-PAC Jax,Other pro-Israel PACs,2018,contribution,yes,27500.0
+C00302414,Northwest PAC,Other pro-Israel PACs,2018,contribution,yes,1000.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2018,contribution,no,5105.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2018,contribution,yes,3400.0
+C00548628,ZOA PAC,Other pro-Israel PACs,2018,contribution,yes,2700.0
+C00441949,JStreetPAC,J Street,2020,contribution,no,1902053.05
+C00441949,JStreetPAC,J Street,2020,contribution,yes,7864380.85
+C00710848,DMFI PAC,DMFI,2020,contribution,yes,295105.0
+C00710848,DMFI PAC,DMFI,2020,ie_support,yes,1882677.22
+C00710848,DMFI PAC,DMFI,2020,ie_oppose,yes,3313515.75
+C00247403,NORPAC,NORPAC,2020,contribution,no,195912.0
+C00247403,NORPAC,NORPAC,2020,contribution,yes,1725594.0
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2020,contribution,no,460952.85
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2020,contribution,yes,2319446.97
+C00699470,Pro-Israel America PAC,Pro-Israel America,2020,contribution,yes,3168271.53
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2020,contribution,no,-1950.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2020,contribution,yes,550472.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2020,contribution,no,50000.0
+C00150995,National PAC Inc a.k.a. NATPAC,Other pro-Israel PACs,2020,contribution,yes,65500.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2020,contribution,no,5000.0
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2020,contribution,yes,113800.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2020,contribution,no,-1000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2020,contribution,yes,169000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2020,contribution,no,4000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2020,contribution,yes,223421.33
+C00102368,The Desert Caucus,Other pro-Israel PACs,2020,contribution,yes,120000.0
+C00138560,Washington Political Action Committee,Other pro-Israel PACs,2020,contribution,yes,22500.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2020,contribution,yes,80000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2020,contribution,no,3500.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2020,contribution,yes,82500.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2020,contribution,no,5000.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2020,contribution,yes,53050.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2020,contribution,yes,170500.0
+C00138701,Americans for Good Government,Other pro-Israel PACs,2020,contribution,yes,1300.0
+C00131557,Heartland PAC,Other pro-Israel PACs,2020,contribution,yes,55000.0
+C00492579,American Principles,Other pro-Israel PACs,2020,contribution,no,64555.0
+C00492579,American Principles,Other pro-Israel PACs,2020,contribution,yes,159070.67
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2020,contribution,yes,62900.0
+C00204388,Bi-County Political Action Committee,Other pro-Israel PACs,2020,contribution,yes,55000.0
+C00187526,CityPAC,Other pro-Israel PACs,2020,contribution,no,3500.0
+C00187526,CityPAC,Other pro-Israel PACs,2020,contribution,yes,57500.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2020,contribution,no,8500.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2020,contribution,yes,47500.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2020,contribution,no,3000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2020,contribution,yes,9000.0
+C00473249,Grand Canyon State Caucus,Other pro-Israel PACs,2020,contribution,yes,72000.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2020,contribution,no,2700.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2020,contribution,yes,31000.44
+C00152280,United Political Action Committee,Other pro-Israel PACs,2020,contribution,yes,11074.75
+C00557926,I-PAC Jax,Other pro-Israel PACs,2020,contribution,no,5000.0
+C00557926,I-PAC Jax,Other pro-Israel PACs,2020,contribution,yes,30500.0
+C00302414,Northwest PAC,Other pro-Israel PACs,2020,contribution,yes,4000.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2020,contribution,no,11952.68
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2020,contribution,yes,700.0
+C00797670,AIPAC PAC,AIPAC,2022,contribution,no,1000.0
+C00797670,AIPAC PAC,AIPAC,2022,contribution,yes,17125632.67
+C00799031,United Democracy Project (UDP),AIPAC,2022,ie_support,yes,14337963.55
+C00799031,United Democracy Project (UDP),AIPAC,2022,ie_oppose,yes,11780736.94
+C00441949,JStreetPAC,J Street,2022,contribution,no,64189.68
+C00441949,JStreetPAC,J Street,2022,contribution,yes,6615542.75
+C00815753,J Street Action Fund,J Street,2022,ie_support,yes,588630.77
+C00815753,J Street Action Fund,J Street,2022,ie_oppose,yes,1073048.42
+C00710848,DMFI PAC,DMFI,2022,contribution,yes,206000.0
+C00710848,DMFI PAC,DMFI,2022,ie_support,yes,3797133.32
+C00710848,DMFI PAC,DMFI,2022,ie_oppose,yes,3359101.92
+C00247403,NORPAC,NORPAC,2022,contribution,no,24191.0
+C00247403,NORPAC,NORPAC,2022,contribution,yes,1577544.5
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2022,contribution,no,209058.08
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2022,contribution,yes,1287429.62
+C00699470,Pro-Israel America PAC,Pro-Israel America,2022,contribution,no,-400.0
+C00699470,Pro-Israel America PAC,Pro-Israel America,2022,contribution,yes,3631647.96
+C00740936,Pro-Israel America Action Fund (PIA Action Fund),Pro-Israel America,2022,ie_support,yes,51566.21
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2022,contribution,no,6000.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2022,contribution,yes,619075.37
+C00147983,National Action Committee (NACPAC),Other pro-Israel PACs,2022,contribution,yes,12000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2022,contribution,no,-5000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2022,contribution,yes,145500.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2022,contribution,no,2500.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2022,contribution,yes,204500.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2022,contribution,no,5350.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2022,contribution,yes,125000.0
+C00141747,Friends of Israel Political Action Committee – FIPAC,Other pro-Israel PACs,2022,contribution,yes,21500.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2022,contribution,no,3500.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2022,contribution,yes,145500.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2022,contribution,no,2072.74
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2022,contribution,yes,86500.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2022,contribution,yes,145753.49
+C00131557,Heartland PAC,Other pro-Israel PACs,2022,contribution,yes,47500.0
+C00492579,American Principles,Other pro-Israel PACs,2022,contribution,no,3530.0
+C00492579,American Principles,Other pro-Israel PACs,2022,contribution,yes,131450.0
+C00113019,Americans United in Support of Democracy,Other pro-Israel PACs,2022,contribution,yes,61282.24
+C00187526,CityPAC,Other pro-Israel PACs,2022,contribution,no,2000.0
+C00187526,CityPAC,Other pro-Israel PACs,2022,contribution,yes,49500.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2022,contribution,yes,74400.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2022,contribution,yes,7000.0
+C00473249,Grand Canyon State Caucus,Other pro-Israel PACs,2022,contribution,yes,46800.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2022,contribution,no,3000.0
+C00381624,Because I Care Political Action Committee (BICPAC),Other pro-Israel PACs,2022,contribution,yes,16000.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2022,contribution,no,33750.0
+C00152280,United Political Action Committee,Other pro-Israel PACs,2022,contribution,yes,2000.0
+C00557926,I-PAC Jax,Other pro-Israel PACs,2022,contribution,yes,8600.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2022,contribution,no,2320.0
+C00797670,AIPAC PAC,AIPAC,2024,contribution,no,1224855.0
+C00797670,AIPAC PAC,AIPAC,2024,contribution,yes,52452019.91
+C00799031,United Democracy Project (UDP),AIPAC,2024,ie_support,yes,13945550.13
+C00799031,United Democracy Project (UDP),AIPAC,2024,ie_oppose,yes,23914259.99
+C00441949,JStreetPAC,J Street,2024,contribution,no,6210947.93
+C00441949,JStreetPAC,J Street,2024,contribution,yes,8187653.97
+C00815753,J Street Action Fund,J Street,2024,ie_oppose,yes,204995.0
+C00710848,DMFI PAC,DMFI,2024,contribution,no,5000.0
+C00710848,DMFI PAC,DMFI,2024,contribution,yes,263000.0
+C00710848,DMFI PAC,DMFI,2024,ie_support,yes,3008558.71
+C00710848,DMFI PAC,DMFI,2024,ie_oppose,yes,1147345.39
+C00247403,NORPAC,NORPAC,2024,contribution,no,612134.0
+C00247403,NORPAC,NORPAC,2024,contribution,yes,2308235.22
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2024,contribution,no,1457700.51
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2024,contribution,yes,1896257.66
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2024,contribution,no,3000.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2024,contribution,yes,647472.32
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2024,contribution,no,-12000.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2024,contribution,yes,127000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2024,contribution,no,-1959.7
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2024,contribution,yes,160000.0
+C00102368,The Desert Caucus,Other pro-Israel PACs,2024,contribution,yes,80000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2024,contribution,no,10000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2024,contribution,yes,144700.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2024,contribution,no,6923.36
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2024,contribution,yes,86200.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2024,contribution,no,2443.8
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2024,contribution,yes,146150.0
+C00492579,American Principles,Other pro-Israel PACs,2024,contribution,no,3800.0
+C00492579,American Principles,Other pro-Israel PACs,2024,contribution,yes,107600.0
+C00891259,Zioness PAC,Other pro-Israel PACs,2024,ie_support,yes,987807.92
+C00187526,CityPAC,Other pro-Israel PACs,2024,contribution,yes,24250.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2024,contribution,yes,47000.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2024,contribution,yes,30000.0
+C00473249,Grand Canyon State Caucus,Other pro-Israel PACs,2024,contribution,yes,37500.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2024,contribution,no,2457.15
+C00797670,AIPAC PAC,AIPAC,2026,contribution,no,912000.0
+C00797670,AIPAC PAC,AIPAC,2026,contribution,yes,50719248.48
+C00799031,United Democracy Project (UDP),AIPAC,2026,ie_support,yes,23346805.34
+C00799031,United Democracy Project (UDP),AIPAC,2026,ie_oppose,yes,30895807.54
+C00441949,JStreetPAC,J Street,2026,contribution,no,1790048.73
+C00441949,JStreetPAC,J Street,2026,contribution,yes,6649577.41
+C00815753,J Street Action Fund,J Street,2026,ie_support,yes,373510.63
+C00815753,J Street Action Fund,J Street,2026,ie_oppose,yes,967074.54
+C00710848,DMFI PAC,DMFI,2026,contribution,yes,108000.0
+C00710848,DMFI PAC,DMFI,2026,ie_support,yes,2294756.42
+C00710848,DMFI PAC,DMFI,2026,ie_oppose,yes,8413522.71
+C00247403,NORPAC,NORPAC,2026,contribution,no,851486.0
+C00247403,NORPAC,NORPAC,2026,contribution,yes,1832089.69
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2026,contribution,no,1505887.7
+C00345132,Republican Jewish Coalition Political Action Committee (RJC-PAC),RJC,2026,contribution,yes,1194315.76
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2026,contribution,no,20050.0
+C00139659,Joint Action Committee for Political Affairs,Other pro-Israel PACs,2026,contribution,yes,466172.0
+C00110585,Citizens Organized Political Action Committee,Other pro-Israel PACs,2026,contribution,yes,69000.0
+C00127811,U.S. Israel PAC (USI PAC),Other pro-Israel PACs,2026,contribution,yes,115500.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2026,contribution,no,34000.0
+C00195024,Maryland Association for Concerned Citizens Political Action Committee,Other pro-Israel PACs,2026,contribution,yes,96500.0
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2026,contribution,no,7741.68
+C00378216,Sun Political Action Committee,Other pro-Israel PACs,2026,contribution,yes,91700.0
+C00135541,To Protect Our Heritage PAC,Other pro-Israel PACs,2026,contribution,yes,86000.0
+C00492579,American Principles,Other pro-Israel PACs,2026,contribution,no,30.0
+C00492579,American Principles,Other pro-Israel PACs,2026,contribution,yes,62600.0
+C00187526,CityPAC,Other pro-Israel PACs,2026,contribution,yes,22000.0
+C00144170,Louisianians for American Security Political Action Committee,Other pro-Israel PACs,2026,contribution,yes,62800.0
+C00165944,Mid Manhattan Political Action Committee (MID PAC),Other pro-Israel PACs,2026,contribution,yes,19000.0
+C00473249,Grand Canyon State Caucus,Other pro-Israel PACs,2026,contribution,no,-233.43
+C00473249,Grand Canyon State Caucus,Other pro-Israel PACs,2026,contribution,yes,71000.0
+C00429571,California Jewish Democrats-Fed,Other pro-Israel PACs,2026,contribution,no,1000.0
