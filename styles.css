@@ -202,3 +202,26 @@ td.win { font-weight: 700; color: var(--ink); }
 .cmp-tx { display: inline-block; margin-top: 12px; font-size: 13px; font-weight: 600; }
 td.num a { color: inherit; text-decoration-color: var(--line); }
 td.num a:hover { text-decoration-color: var(--accent); }
+
+/* multi-select dropdowns */
+.fbox { display: flex; flex-direction: column; gap: 4px; }
+.fbox-row { flex-direction: row; align-items: center; gap: 8px; }
+.flabel { font-size: 12px; color: var(--muted); }
+.msel { position: relative; }
+.msel-btn { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-width: 190px; max-width: 280px;
+  background: var(--page); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; font: inherit; font-size: 14px; cursor: pointer; text-align: left; }
+.msel-btn.on { border-color: var(--accent); }
+.msel-txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.msel-car { color: var(--muted); font-size: 11px; flex: none; }
+.msel-pop { position: absolute; z-index: 40; top: calc(100% + 4px); left: 0; min-width: 100%; width: max-content; max-width: min(340px, 92vw);
+  background: #000; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.55); padding: 6px; }
+.msel-list { max-height: 300px; overflow-y: auto; }
+.msel-pop label { display: flex; flex-direction: row; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; font-size: 14px; color: var(--ink); cursor: pointer; white-space: nowrap; }
+.msel-pop label:hover { background: var(--surface-2); }
+.msel-all { border-bottom: 1px solid var(--line); border-radius: 6px 6px 0 0 !important; margin-bottom: 4px; }
+.msel-pop input[type=checkbox] { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; flex: none; }
+.tx-head .msel-btn { min-width: 0; max-width: 260px; font-size: 13px; padding: 5px 9px; }
+@media (max-width: 600px) {
+  .msel-btn { min-width: 150px; }
+  .filters { gap: 12px; }
+}

@@ -12,8 +12,9 @@
   const $ = (s, el) => (el || document).querySelector(s);
   const main = $("#main"), tip = $("#tooltip");
   const PBY = Object.fromEntries(POLS.map((p) => [p.id, p]));
-  const state = { view: "overview", id: null, id2: null, cmpAll: false, cycle: null, group: null, from: null, scrollTx: false,
-                  q: "", party: "", office: "", st: "", sort: "total", dir: -1, limit: 50,
+  // cyc / grp: null = all, otherwise a Set of cycle / group indexes (the filters are multi-select)
+  const state = { view: "overview", id: null, id2: null, cmpAll: false, cyc: null, grp: null, from: null, scrollTx: false,
+                  q: "", party: null, office: null, st: null, sort: "total", dir: -1, limit: 50,
                   ksort: "total", kdir: -1 };
 
   /* ---------- formatting ---------- */
@@ -32,15 +33,21 @@
   const cycleLabel = (c) => `${c - 1}–${String(c).slice(2)}`;
 
   /* ---------- filters & routing ---------- */
+  const cycOk = (ci) => state.cyc === null || state.cyc.has(ci);
+  const grpOk = (g) => state.grp === null || state.grp.has(g);
+  const fromOk = (ci) => state.from === null || state.cyc !== null || cycles[ci] >= state.from;
+  const sorted = (set) => [...set].sort((a, b) => a - b);
+  const oneCyc = () => (state.cyc !== null && state.cyc.size === 1 ? sorted(state.cyc)[0] : null);   // exactly one cycle picked
+  function andList(a) { return a.length <= 1 ? (a[0] || "") : a.length === 2 ? a.join(" and ") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1]; }
+  const cycWords = () => { const c = sorted(state.cyc).map((ci) => cycleLabel(cycles[ci])); return c.length === 1 ? `the ${c[0]} cycle` : c.length <= 3 ? `the ${andList(c)} cycles` : `${c.length} cycles`; };
+  const grpWords = () => { const g = sorted(state.grp).map((gi) => groups[gi]); return g.length <= 3 ? andList(g) : `${g.length} PAC groups`; };
   function inFilter(ci, ki) {
-    return (state.cycle === null || ci === state.cycle) && (state.group === null || K[ki].g === state.group)
-      && (state.from === null || state.cycle !== null || cycles[ci] >= state.from);
+    return cycOk(ci) && grpOk(K[ki].g) && fromOk(ci);
   }
   function polTotals(p, ignoreCycle) {
     const t = [0, 0, 0];
     for (const [ci, ki, ch, amt] of p.t) {
-      if ((ignoreCycle || state.cycle === null || ci === state.cycle) && (state.group === null || K[ki].g === state.group)
-          && (ignoreCycle || state.from === null || state.cycle !== null || cycles[ci] >= state.from)) t[ch] += amt;
+      if ((ignoreCycle || (cycOk(ci) && fromOk(ci))) && grpOk(K[ki].g)) t[ch] += amt;
     }
     return t;
   }
@@ -56,21 +63,24 @@
     const fr = parseInt(q.get("from"), 10);
     state.from = state.view === "politician" && cycles.includes(fr) && fr > cycles[0] ? fr : null;
     state.scrollTx = q.get("tx") === "1";
-    const cy = parseInt(q.get("cycle"), 10);
-    state.cycle = cycles.includes(cy) ? cycles.indexOf(cy) : null;
-    const g = q.get("group");
-    state.group = g && groups.includes(g) ? groups.indexOf(g) : null;
+    const asSet = (v, arr, conv) => {             // "2022,2024" -> Set of indexes; all or none picked -> null
+      if (!v) return null;
+      const set = new Set(v.split(",").map((x) => arr.indexOf(conv(x.trim()))).filter((i) => i >= 0));
+      return set.size && set.size < arr.length ? set : null;
+    };
+    state.cyc = asSet(q.get("cycle"), cycles, (x) => parseInt(x, 10));
+    state.grp = asSet(q.get("group"), groups, (x) => x);
     const pk = K.findIndex((k) => k.id === q.get("pac"));
     state.pac = pk >= 0 ? pk : null;
   }
   function hashFor(view, id) {
     const q = new URLSearchParams();
-    if (state.cycle !== null) q.set("cycle", cycles[state.cycle]);
-    if (state.group !== null) q.set("group", groups[state.group]);
+    if (state.cyc !== null) q.set("cycle", sorted(state.cyc).map((ci) => cycles[ci]).join(","));
+    if (state.grp !== null) q.set("group", sorted(state.grp).map((gi) => groups[gi]).join(","));
     if (view === "compare" && state.cmpAll) q.set("years", "all");
     const base = view === "politician" ? `#/p/${id}` : view === "pac" ? `#/pac/${id}` : view === "overview" ? "#/"
       : view === "compare" ? "#/compare" + (id ? "/" + id : "") : `#/${view}`;
-    const qs = q.toString();
+    const qs = q.toString().replace(/%2C/g, ",");
     return base + (qs ? "?" + qs : "");
   }
   function go(view, id) { location.hash = hashFor(view, id); }
@@ -79,9 +89,10 @@
   const cmpHashY = (a, b, all) => { const keep = state.cmpAll; state.cmpAll = all; const h = cmpHash(a, b); state.cmpAll = keep; return h; };
   function filterNote() {
     const bits = [];
-    bits.push(state.cycle !== null ? `${cycleLabel(cycles[state.cycle])} cycle` : state.from !== null ? `The ${state.from}–${cycles[cycles.length - 1]} cycles`
+    const cap = (x) => x.charAt(0).toUpperCase() + x.slice(1);
+    bits.push(state.cyc !== null ? cap(cycWords()) : state.from !== null ? `The ${state.from}–${cycles[cycles.length - 1]} cycles`
       : `All cycles ${cycles[0] - 1}–${cycles[cycles.length - 1]}`);
-    bits.push(state.group === null ? "all pro-Israel PACs" : groups[state.group]);
+    bits.push(state.grp === null ? "all pro-Israel PACs" : grpWords());
     return bits.join(" · ");
   }
 
@@ -169,8 +180,8 @@
       hit.addEventListener("mouseleave", hideTip);
       if (opts.onClick) hit.addEventListener("click", () => { hideTip(); opts.onClick(b); });
     });
-    if (opts.highlight != null) {
-      const i = opts.highlight;
+    for (const i of [].concat(opts.highlight == null ? [] : opts.highlight)) {
+      if (i < 0 || i >= bands.length) continue;
       el("rect", { x: m.l + i * bw + 1, y: m.t, width: bw - 2, height: ih, fill: "none", stroke: "var(--accent)", "stroke-width": 1, rx: 4 }, svg);
     }
   }
@@ -349,14 +360,15 @@
       const inBack = (r) => !!r[8] && inFilter(r[8][0], r[1]);
       const base = rows.filter((r) => inMain(r) || inBack(r));
       const kset = [...new Set(base.map((r) => r[1]))].sort((a, b) => a - b);
-      let pac = opts.pac != null && kset.includes(opts.pac) ? opts.pac : null, shown = 100;
+      let pac = opts.pac != null && kset.includes(opts.pac) ? new Set([String(opts.pac)]) : null, shown = 100;   // PAC filter: Set or null
+      box.innerHTML = `<div class="tx-head">${opts.showPac && kset.length > 1 ? `<div class="fbox fbox-row"><span class="flabel">PAC</span><div class="tx-pacsel"></div></div>` : ""}<span class="small muted tx-sums"></span></div><div class="tx-body"></div>`;
       const giveBack = (r) => {                       // returned money shown for this row, and whether it counts here
         if (r[8]) return { amt: r[8][2], counts: inBack(r), d: r[8][1], src: r[8][3], flag: r[8][4], basis: r[8][5], ci: r[8][0] };
         if (r[4] < 0 && r[2] === 0) return { amt: r[4], counts: inMain(r), d: r[3], src: r[5], flag: r[6], basis: 0, ci: r[0], own: true };
         return null;
       };
       const draw = () => {
-        const list = pac === null ? base : base.filter((r) => r[1] === pac);
+        const list = pac === null ? base : base.filter((r) => pac.has(String(r[1])));
         let recv = 0, ret = 0, other = 0;
         for (const r of list) {
           const g = giveBack(r);
@@ -366,8 +378,6 @@
         }
         const total = recv + ret + other;
         const pct = recv > 0 && ret ? ` (${(-ret / recv * 100).toFixed(-ret / recv < 0.1 ? 1 : 0)}%)` : "";
-        const sel = opts.showPac && kset.length > 1 ? `<label class="small muted">PAC <select id="tx-pac"><option value="">All PACs (${kset.length})</option>${
-          kset.map((ki) => `<option value="${ki}" ${ki === pac ? "selected" : ""}>${esc(K[ki].n)}</option>`).join("")}</select></label>` : "";
         const sums = recv || ret ? `received ${money(recv, true)} · returned ${money(-ret, true)}${pct} · kept ${money(recv + ret, true)}${other ? ` · ads ${money(other, true)}` : ""}` : `sum ${money(total, true)}`;
         const check = pac === null && opts.expect != null ? (Math.abs(total - opts.expect) < 1 ? ` · matches ${opts.expectLabel || "the total above"}` : ` · differs from ${opts.expectLabel || "the total above"} by ${money(total - opts.expect, true)}`) : "";
         const backCell = (r, g) => {
@@ -377,8 +387,8 @@
           return `<span class="neg">${money(g.amt, true)}</span><div class="small muted">${fmtDate(g.d)}${g.own ? "" : " · " + esc(RET_LABEL[g.flag] || "returned")}${g.counts ? "" : ` · counted in the ${cycles[g.ci]} cycle`}</div>`
             + (g.own ? "" : `<div class="small">${link}${g.basis ? `<span class="muted hide-sm" title="${esc(BASIS_TEXT[g.basis])}"> ⓘ</span>` : ""}</div>`);
         };
-        box.innerHTML = `<div class="tx-head">${sel}<span class="small muted">${list.length.toLocaleString("en-US")} line${list.length === 1 ? "" : "s"} · ${sums}${check}</span></div>
-          ${list.length ? `<div class="tx-scroll"><table class="tx"><thead><tr><th>Date</th>${opts.showPac ? "<th>PAC</th>" : ""}<th class="hide-sm">To</th><th class="hide-sm">Type</th><th class="num">Amount</th><th class="num hide-sm">Returned</th><th>Source</th></tr></thead><tbody>${
+        box.querySelector(".tx-sums").innerHTML = `${list.length.toLocaleString("en-US")} line${list.length === 1 ? "" : "s"} · ${sums}${check}`;
+        box.querySelector(".tx-body").innerHTML = `${list.length ? `<div class="tx-scroll"><table class="tx"><thead><tr><th>Date</th>${opts.showPac ? "<th>PAC</th>" : ""}<th class="hide-sm">To</th><th class="hide-sm">Type</th><th class="num">Amount</th><th class="num hide-sm">Returned</th><th>Source</th></tr></thead><tbody>${
           list.slice(0, shown).map((r) => {
             const g = giveBack(r), main_ = inMain(r);
             const amtCell = g && g.own ? "—" : `${main_ ? money(r[4], true) : `<span class="muted">${money(r[4], true)}</span><div class="small muted">counted in the ${cycles[r[0]]} cycle</div>`}`
@@ -387,14 +397,59 @@
             return `<tr><td class="nowrap">${dateCell(r[3])}${opts.showPac ? "" : `<div class="small muted show-sm">${typ}</div>`}</td>${opts.showPac ? `<td>${esc(K[r[1]].n)}<div class="small muted show-sm">${typ}</div></td>` : ""}<td class="hide-sm small">${r[7] >= 0 ? esc(R[r[7]][1]) : "—"}</td><td class="hide-sm small">${typ}</td><td class="num nowrap">${amtCell}</td><td class="num nowrap hide-sm">${backCell(r, g)}</td><td class="small nowrap">${srcLink(r[5], filerOf(r[6], K[r[1]].id, r[7]), cycles[r[0]], r, r[6] === 4 ? "Campaign report" : null)}</td></tr>`;
           }).join("")}</tbody></table></div>` : `<p class="muted small">No lines for these filters.</p>`}
           ${list.length > shown ? `<button class="linkish" type="button" id="tx-more">${list.length - shown <= 250 ? `Show the other ${(list.length - shown).toLocaleString("en-US")}` : `Show 250 more (${(list.length - shown).toLocaleString("en-US")} not shown yet)`}</button>` : ""}`;
-        const ps = box.querySelector("#tx-pac");
-        if (ps) ps.addEventListener("change", () => { pac = ps.value === "" ? null : parseInt(ps.value, 10); shown = 100; draw(); });
         const more = box.querySelector("#tx-more");
         if (more) more.addEventListener("click", () => { shown += 250; draw(); });
       };
+      const ps = box.querySelector(".tx-pacsel");
+      if (ps) msel(ps, { all: `All PACs (${kset.length})`, noun: "PACs", aria: "PACs", items: kset.map((ki) => ({ v: String(ki), t: K[ki].n })),
+        get: () => pac, set: (v) => { pac = v; shown = 100; draw(); } });
       draw();
     });
   }
+
+  /* ---------- multi-select dropdown: a button that opens a checkbox list; each tick applies right away ----------
+     items: [{v, t}] (v as a string); get(): Set of v, or null for all; set(next): Set or null */
+  function msel(box, o) {
+    box.classList.add("msel");
+    box.innerHTML = `<button type="button" class="msel-btn" aria-haspopup="true" aria-expanded="false"${o.aria ? ` aria-label="${esc(o.aria)}"` : ""}><span class="msel-txt"></span><span class="msel-car" aria-hidden="true">▾</span></button>
+      <div class="msel-pop" hidden>
+        <label class="msel-all"><input type="checkbox" data-all> ${esc(o.all)}</label>
+        <div class="msel-list">${o.items.map((it) => `<label><input type="checkbox" value="${esc(it.v)}"> ${esc(it.t)}</label>`).join("")}</div>
+      </div>`;
+    const btn = box.querySelector(".msel-btn"), pop = box.querySelector(".msel-pop"), txt = box.querySelector(".msel-txt");
+    const allBox = box.querySelector("[data-all]"), boxes = [...box.querySelectorAll(".msel-list input")];
+    const sync = () => {
+      const cur = o.get();
+      allBox.checked = cur === null;
+      boxes.forEach((b) => { b.checked = cur !== null && cur.has(b.value); });
+      const picked = cur === null ? [] : o.items.filter((it) => cur.has(it.v));
+      txt.textContent = cur === null || !picked.length ? o.all : picked.length === 1 ? picked[0].t
+        : picked.length === 2 && (picked[0].t + picked[1].t).length <= 20 ? picked[0].t + ", " + picked[1].t : `${picked.length} ${o.noun}`;
+      btn.classList.toggle("on", cur !== null);
+    };
+    const close = () => { pop.hidden = true; btn.setAttribute("aria-expanded", "false"); };
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const opening = pop.hidden;
+      document.querySelectorAll(".msel-pop").forEach((x) => { x.hidden = true; });
+      document.querySelectorAll(".msel-btn").forEach((x) => x.setAttribute("aria-expanded", "false"));
+      if (opening) { pop.hidden = false; btn.setAttribute("aria-expanded", "true"); }
+    });
+    pop.addEventListener("click", (e) => e.stopPropagation());
+    allBox.addEventListener("change", () => { if (allBox.checked) o.set(null); else allBox.checked = true; sync(); });
+    boxes.forEach((b) => b.addEventListener("change", () => {
+      const vals = boxes.filter((x) => x.checked).map((x) => x.value);
+      o.set(vals.length && vals.length < boxes.length ? new Set(vals) : null);
+      sync();
+    }));
+    box.addEventListener("keydown", (e) => { if (e.key === "Escape") { close(); btn.focus(); } });
+    box._sync = sync; box._close = close;
+    sync();
+    return box;
+  }
+  document.addEventListener("click", () => document.querySelectorAll(".msel").forEach((m) => m._close && m._close()));
+  const strSet = (set) => (set === null ? null : new Set([...set].map(String)));
+  const intSet = (set) => (set === null ? null : new Set([...set].map((x) => parseInt(x, 10))));
 
   /* ---------- views ---------- */
   function viewOverview() {
@@ -419,7 +474,7 @@
       </div>`;
 
     // 1) by cycle, or by month inside one cycle
-    const cy = state.cycle;
+    const cy = oneCyc();
     let bands;
     if (cy === null) {
       const acc = cycles.map(() => [0, 0, 0]);
@@ -427,12 +482,13 @@
       bands = cycleBands((ci) => acc[ci]);
       $("#cyc-title").textContent = "Money by election cycle";
       $("#cyc-sub").textContent = "Each cycle covers two years (the 2026 cycle runs 2025–26). Click a column to see that cycle by month";
-      columns($("#c-cycle"), bands, { aria: "Money by election cycle", onClick: (b) => { state.cycle = b.ci; go(state.view === "overview" ? "overview" : state.view); } });
+      columns($("#c-cycle"), bands, { aria: "Money by election cycle", highlight: state.cyc ? sorted(state.cyc) : null,
+        onClick: (b) => { state.cyc = new Set([b.ci]); go("overview"); } });
     } else {
       const c = cycles[cy], months = [];
       for (const y of [c - 1, c]) for (let mth = 1; mth <= 12; mth++) months.push(`${y}-${String(mth).padStart(2, "0")}`);
       const acc = Object.fromEntries(months.map((m) => [m, [0, 0, 0]]));
-      for (const [ym, ki, ch, amt] of PD.monthly) if (acc[ym] && (state.group === null || K[ki].g === state.group)) acc[ym][ch] += amt;
+      for (const [ym, ki, ch, amt] of PD.monthly) if (acc[ym] && grpOk(K[ki].g)) acc[ym][ch] += amt;
       bands = months.map((m) => ({ label: new Date(m + "-15").toLocaleString("en-US", { month: "short" }) + (m.endsWith("-01") ? " ’" + m.slice(2, 4) : ""),
                                    title: new Date(m + "-15").toLocaleString("en-US", { month: "long", year: "numeric" }), v: acc[m] }));
       $("#cyc-title").textContent = `Money by month, ${cycleLabel(c)} cycle`;
@@ -443,9 +499,13 @@
 
     // 2) by group
     const gt = groups.map(() => 0);
-    for (const [ci, ki, , , amt] of PD.overall) if (state.cycle === null || ci === state.cycle) gt[K[ki].g] += amt;
-    const grows = groups.map((g, gi) => ({ label: g, value: gt[gi], dim: state.group !== null && state.group !== gi,
-      onClick: () => { state.group = state.group === gi ? null : gi; go("overview"); } })).filter((r) => r.value).sort((a, b) => b.value - a.value);
+    for (const [ci, ki, , , amt] of PD.overall) if (cycOk(ci)) gt[K[ki].g] += amt;
+    const grows = groups.map((g, gi) => ({ label: g, value: gt[gi], dim: !grpOk(gi),
+      onClick: () => {                           // click a group to add it to (or take it out of) the PAC group filter
+        const set = new Set(state.grp || []);
+        if (set.has(gi)) set.delete(gi); else set.add(gi);
+        state.grp = set.size && set.size < groups.length ? set : null; go("overview");
+      } })).filter((r) => r.value).sort((a, b) => b.value - a.value);
     hbars($("#c-group"), grows, { aria: "Money by PAC group", labelW: 170 });
     tableToggle($("#p-group"), ["Group", "Total"], grows.map((r) => [r.label, money(r.value, true)]));
 
@@ -478,17 +538,17 @@
       <p class="sub">Every federal candidate who got money from these PACs, or had ads run for or against them. ${esc(filterNote())}.</p>
       <div class="toolbar">
         <label>Search<input type="search" id="q" placeholder="Name" value="${esc(state.q)}"></label>
-        <label>Party<select id="fp"><option value="">All parties</option>${Object.entries(PARTY).map(([k, v]) => `<option value="${k}" ${state.party === k ? "selected" : ""}>${v}</option>`).join("")}</select></label>
-        <label>Office<select id="fo"><option value="">All offices</option>${Object.entries(OFFICE).map(([k, v]) => `<option value="${k}" ${state.office === k ? "selected" : ""}>${v}</option>`).join("")}</select></label>
-        <label>State<select id="fs"><option value="">All states</option>${states.map((s) => `<option ${state.st === s ? "selected" : ""}>${s}</option>`).join("")}</select></label>
+        <div class="fbox"><span class="flabel">Party</span><div id="fp"></div></div>
+        <div class="fbox"><span class="flabel">Office</span><div id="fo"></div></div>
+        <div class="fbox"><span class="flabel">State</span><div id="fs"></div></div>
         <span class="muted small" id="count"></span>
       </div>
       <div class="panel" style="padding:0;overflow:auto"><table id="ptable"></table></div>
       <button class="more" id="more" type="button">Show more</button>`;
     const draw = () => {
       const q = state.q.trim().toLowerCase();
-      let rows = POLS.filter((p) => (!q || p.n.toLowerCase().includes(q)) && (!state.party || p.p === state.party)
-        && (!state.office || p.o === state.office) && (!state.st || p.s === state.st))
+      let rows = POLS.filter((p) => (!q || p.n.toLowerCase().includes(q)) && (!state.party || state.party.has(p.p))
+        && (!state.office || state.office.has(p.o)) && (!state.st || state.st.has(p.s)))
         .map((p) => ({ p, v: polTotals(p) })).filter((x) => Math.abs(sum3(x.v)) >= 1 || (q && x.p.cm));
       const key = { total: (x) => sum3(x.v), c: (x) => x.v[0], s: (x) => x.v[1], o: (x) => x.v[2], name: (x) => x.p.n };
       rows.sort((a, b) => { const A = key[state.sort](a), B = key[state.sort](b); return (A < B ? -1 : A > B ? 1 : 0) * state.dir; });
@@ -507,9 +567,12 @@
       $("#ptable").querySelectorAll("tr.clickable").forEach((tr) => tr.addEventListener("click", (e) => { if (e.target.tagName !== "A") go("politician", tr.dataset.id); }));
     };
     $("#q").addEventListener("input", (e) => { state.q = e.target.value; state.limit = 50; draw(); });
-    $("#fp").addEventListener("change", (e) => { state.party = e.target.value; state.limit = 50; draw(); });
-    $("#fo").addEventListener("change", (e) => { state.office = e.target.value; state.limit = 50; draw(); });
-    $("#fs").addEventListener("change", (e) => { state.st = e.target.value; state.limit = 50; draw(); });
+    msel($("#fp"), { all: "All parties", noun: "parties", aria: "Parties", items: Object.entries(PARTY).map(([k, v]) => ({ v: k, t: v })),
+      get: () => state.party, set: (v) => { state.party = v; state.limit = 50; draw(); } });
+    msel($("#fo"), { all: "All offices", noun: "offices", aria: "Offices", items: Object.entries(OFFICE).map(([k, v]) => ({ v: k, t: v })),
+      get: () => state.office, set: (v) => { state.office = v; state.limit = 50; draw(); } });
+    msel($("#fs"), { all: "All states", noun: "states", aria: "States", items: states.map((x) => ({ v: x, t: x })),
+      get: () => state.st, set: (v) => { state.st = v; state.limit = 50; draw(); } });
     $("#more").addEventListener("click", () => { state.limit += 100; draw(); });
     draw();
   }
@@ -547,17 +610,17 @@
     const krows = Object.entries(byK).map(([ki, o]) => ({ k: K[ki], v: o.v, cyc: [...o.cyc].sort() }))
       .filter((r) => Math.abs(sum3(r.v)) >= 1).sort((a, b) => sum3(b.v) - sum3(a.v));
     const acc = cycles.map(() => [0, 0, 0]);
-    for (const [ci, ki, ch, amt] of p.t) if (state.group === null || K[ki].g === state.group) acc[ci][ch] += amt;
+    for (const [ci, ki, ch, amt] of p.t) if (grpOk(K[ki].g)) acc[ci][ch] += amt;
     const firstC = acc.findIndex((v) => sum3(v)), lastC = acc.length - 1 - [...acc].reverse().findIndex((v) => sum3(v));
     main.innerHTML = `
       <a class="back" href="${hashFor("politicians")}">← Politicians</a>
       ${head}
-      ${state.from !== null && state.cycle === null ? `<p class="callout">Showing the ${state.from}–${cycles[cycles.length - 1]} cycles, to match the comparison you came from. <a href="${hashFor("politician", p.id)}">Show all cycles</a></p>` : ""}
+      ${state.from !== null && state.cyc === null ? `<p class="callout">Showing the ${state.from}–${cycles[cycles.length - 1]} cycles, to match the comparison you came from. <a href="${hashFor("politician", p.id)}">Show all cycles</a></p>` : ""}
       ${tiles(t, ["PACs involved", krows.length, ""], esc(filterNote()))}
       ${t[0] + returned >= 1 ? `<div class="kept"><div><span class="label">Contributions received</span><b>${money(t[0] + returned, true)}</b></div><div><span class="label">Returned</span><b>${money(returned, true)}</b><span class="muted small"> ${((returned / (t[0] + returned)) * 100).toFixed(returned && returned / (t[0] + returned) < 0.1 ? 1 : 0)}%</span></div><div><span class="label">Kept</span><b>${money(t[0], true)}</b></div><p class="small muted">Returned counts money the campaign refunded (to the PAC or straight to the donor) or the PAC voided. Only money that was accepted and then given back is on record; the FEC has no record of money a candidate turned down.</p></div>` : ""}
       ${jfcAmt >= 1 ? `<p class="callout">Includes ${money(jfcAmt, true)} given to ${jn.length === 1 ? esc(jn[0]) + ", a joint fundraising committee" : "joint fundraising committees" + (jn.length ? " (" + esc(jn.join(", ")) + ")" : "")}. A joint fundraising committee divides what it raises among the committees that formed it: the candidate's campaign and, often, a leadership PAC or party committee. So not all of this necessarily went to the candidate's own campaign.</p>` : ""}
-      ${p.x && (p.x[0] || p.x[1]) && state.group === null ? `<p class="callout">Context, not counted above: PACs that AIPAC's super PAC (UDP) helped fund also spent ${money(p.x[0], true)} supporting and ${money(p.x[1], true)} opposing this politician (2022 cycle onward).</p>` : ""}
-      <section class="panel" id="p-pc"><div class="panel-head"><div><h2>By election cycle</h2><p>All cycles shown${state.group !== null ? ", " + esc(groups[state.group]) + " only" : ""}. The cycle filter applies to the totals and table</p></div></div>
+      ${p.x && (p.x[0] || p.x[1]) && state.grp === null ? `<p class="callout">Context, not counted above: PACs that AIPAC's super PAC (UDP) helped fund also spent ${money(p.x[0], true)} supporting and ${money(p.x[1], true)} opposing this politician (2022 cycle onward).</p>` : ""}
+      <section class="panel" id="p-pc"><div class="panel-head"><div><h2>By election cycle</h2><p>All cycles shown${state.grp !== null ? ", " + esc(grpWords()) + " only" : ""}. The cycle filter applies to the totals and table</p></div></div>
         ${legend([0, 1, 2])}<div class="chart" id="c-pc"></div></section>
       <section class="panel" style="padding:0;overflow:auto"><table>
         <thead><tr><th>PAC</th><th>Group</th><th class="hide-sm">Cycles</th><th class="num">Contributions</th><th class="num">Ads for</th><th class="num">Ads against</th><th class="num">Total</th></tr></thead>
@@ -568,7 +631,7 @@
       ${PD.meta.tx ? `<section class="panel" id="p-tx"><div class="panel-head"><div><h2>Every transaction behind these numbers</h2><p>Each line links to the page of the PAC's own FEC report where it appears. ${esc(filterNote())}</p></div></div><div id="tx-box"></div></section>` : ""}
       ${reportNote(p.n)}`;
     const bands = firstC < 0 ? [] : cycleBands((ci) => acc[ci]).slice(firstC, lastC + 1);
-    if (bands.length) columns($("#c-pc"), bands, { aria: "By election cycle", highlight: state.cycle !== null ? state.cycle - firstC : null, height: 220 });
+    if (bands.length) columns($("#c-pc"), bands, { aria: "By election cycle", highlight: state.cyc ? sorted(state.cyc).map((ci) => ci - firstC) : null, height: 220 });
     tableToggle($("#p-pc"), ["Cycle", ...CH_SHORT, "Total"], bands.filter((b) => sum3(b.v)).map((b) => [b.title, ...b.v.map((v) => money(v, true)), money(sum3(b.v), true)]));
     main.querySelectorAll("tr.clickable").forEach((tr) => tr.addEventListener("click", (e) => { if (e.target.tagName !== "A") go("pac", tr.dataset.k); }));
     if (PD.meta.tx) txPanel($("#tx-box"), p.id, { showPac: true, pac: state.pac, expect: sum3(t) });
@@ -611,7 +674,7 @@
     const recips = [];
     for (const p of POLS) {
       const v = [0, 0, 0];
-      for (const [ci, kk, ch, amt] of p.t) if (kk === ki && (state.cycle === null || ci === state.cycle)) v[ch] += amt;
+      for (const [ci, kk, ch, amt] of p.t) if (kk === ki && cycOk(ci)) v[ch] += amt;
       if (Math.abs(sum3(v)) >= 1) recips.push({ p, v });
     }
     recips.sort((a, b) => sum3(b.v) - sum3(a.v));
@@ -633,7 +696,7 @@
       ${PD.meta.tx && Math.abs(tt.notTied) >= 1 ? `<section class="panel"><div class="panel-head"><div><h2>Money not tied to one politician</h2><p>Payments to parties, joint fundraising committees and other PACs whose filings didn't name a candidate. The rest of this PAC's money is listed on each politician's page. Each line links to the FEC report page.</p></div></div><div id="tx-box"></div></section>` : ""}
       ${reportNote(k.n)}`;
     const bands = firstC < 0 ? [] : cycleBands((ci) => acc[ci]).slice(firstC, lastC + 1);
-    if (bands.length) columns($("#c-kc"), bands, { aria: "By election cycle", highlight: state.cycle !== null ? state.cycle - firstC : null, height: 220 });
+    if (bands.length) columns($("#c-kc"), bands, { aria: "By election cycle", highlight: state.cyc ? sorted(state.cyc).map((ci) => ci - firstC) : null, height: 220 });
     tableToggle($("#p-kc"), ["Cycle", ...CH_SHORT, "Total"], bands.filter((b) => sum3(b.v)).map((b) => [b.title, ...b.v.map((v) => money(v, true)), money(sum3(b.v), true)]));
     main.querySelectorAll("tr.clickable").forEach((tr) => tr.addEventListener("click", (e) => { if (e.target.tagName !== "A") location.hash = tr.querySelector("a").getAttribute("href"); }));
     if (PD.meta.tx && $("#tx-box")) txPanel($("#tx-box"), "K:" + k.id, { showPac: false, expect: tt.notTied, expectLabel: `the ${money(tt.notTied, true)} not tied to one politician in the Total box` });
@@ -648,7 +711,7 @@
   function cmpTotals(p, w) {
     const v = [0, 0, 0], g = groups.map(() => 0), cy = {}, other = [];
     let ret = 0, jf = 0;
-    const ok = (ci, ki) => cycles[ci] >= w.from && cycles[ci] <= w.to && (state.group === null || K[ki].g === state.group);
+    const ok = (ci, ki) => w.inc(cycles[ci]) && grpOk(K[ki].g);
     for (const id of [p.id, ...(p.al || [])]) {
       const q = PBY[id]; if (!q) continue;
       let mine = 0;
@@ -667,9 +730,9 @@
     const a = resolvePol(state.id), b = resolvePol(state.id2);
     const last = cycles[cycles.length - 1];
     let w;
-    if (state.cycle !== null) w = { from: cycles[state.cycle], to: cycles[state.cycle], label: `the ${cycleLabel(cycles[state.cycle])} cycle` };
-    else if (a && b && a.fc && b.fc && !state.cmpAll) { const f = Math.max(a.fc, b.fc); w = { from: f, to: last, label: `the ${f}–${last} cycles`, same: true }; }
-    else w = { from: cycles[0], to: last, label: `all cycles, ${cycles[0] - 1}–${last}` };
+    if (state.cyc !== null) { const set = new Set(sorted(state.cyc).map((ci) => cycles[ci])); w = { inc: (c) => set.has(c), label: cycWords(), picked: true }; }
+    else if (a && b && a.fc && b.fc && !state.cmpAll) { const f = Math.max(a.fc, b.fc); w = { inc: (c) => c >= f, from: f, label: `the ${f}–${last} cycles`, same: true }; }
+    else w = { inc: () => true, label: `all cycles, ${cycles[0] - 1}–${last}` };
     const picker = (slot, p) => `<div class="picker" data-slot="${slot}"><label>${slot ? "Second" : "First"} politician
         <input type="search" autocomplete="off" placeholder="Type a name" value="${p ? esc(pickLabel(p)) : ""}" aria-label="${slot ? "Second" : "First"} politician"></label>
         <ul class="suggest" role="listbox" hidden></ul></div>`;
@@ -683,13 +746,13 @@
       const polLink = (p, o) => {
         o = o || {};
         const q = new URLSearchParams();
-        const cyc = o.cycle != null ? o.cycle : state.cycle !== null ? cycles[state.cycle] : null;
+        const cyc = o.cycle != null ? o.cycle : state.cyc !== null ? sorted(state.cyc).map((ci) => cycles[ci]).join(",") : null;
         if (cyc != null) q.set("cycle", cyc); else if (w.same && w.from > cycles[0]) q.set("from", w.from);
-        const g = o.group != null ? o.group : state.group !== null ? groups[state.group] : null;
+        const g = o.group != null ? o.group : state.grp !== null ? sorted(state.grp).map((gi) => groups[gi]).join(",") : null;
         if (g) q.set("group", g);
         if (o.tx) q.set("tx", "1");
         const qs = q.toString();
-        return `#/p/${p.id}` + (qs ? "?" + qs : "");
+        return `#/p/${p.id}` + (qs ? "?" + qs.replace(/%2C/g, ",") : "");
       };
       const card = (p, T, isLead) => `<div class="cmp-card${isLead ? " lead" : ""}">
           ${isLead ? '<span class="cmp-badge">Higher total</span>' : ""}
@@ -708,14 +771,14 @@
           ${T.other.map((o) => `<p class="small muted">Includes ${money(o.amt, true)} to their ${esc(seatLabel(o.q))} campaign (<a href="${polLink(o.q, { tx: 1 })}">its transactions</a>)</p>`).join("")}
           <a class="cmp-tx" href="${polLink(p, { tx: 1 })}">${Math.abs(T.head) >= 0.5 || T.v[2] ? "See every transaction behind this →" : "How the $0 was checked →"}</a>
         </div>`;
-      const from = state.group === null ? "pro-Israel PACs" : groups[state.group];
+      const from = state.grp === null ? "pro-Israel PACs" : grpWords();
       const diff = lead < 0
         ? (A.head < 0.5 ? `Neither got money from ${esc(from)} in ${w.label}.` : `Both got the same amount from ${esc(from)} in ${w.label}.`)
         : `<b>${esc((lead ? b : a).n)}</b> got <b>${money(Math.abs(A.head - B.head), true)} more</b> than ${esc((lead ? a : b).n)} from ${esc(from)}, ${w.label}.`;
       const cell = (x, y, href) => `<td class="num${x > y + 0.5 ? " win" : ""}">${Math.abs(x) >= 0.5 ? (href ? `<a href="${href}">${money(x, true)}</a>` : money(x, true)) : "—"}</td>`;
       const grows = groups.map((g, gi) => [g, A.g[gi], B.g[gi]]).filter((r) => Math.abs(r[1]) >= 0.5 || Math.abs(r[2]) >= 0.5);
-      const cys = cycles.filter((c) => c >= w.from && c <= w.to && (Math.abs(A.cy[c] || 0) >= 0.5 || Math.abs(B.cy[c] || 0) >= 0.5));
-      const yearsOpt = state.cycle !== null ? `<span class="muted small">Showing ${esc(w.label)} (from the cycle filter above)</span>`
+      const cys = cycles.filter((c) => w.inc(c) && (Math.abs(A.cy[c] || 0) >= 0.5 || Math.abs(B.cy[c] || 0) >= 0.5));
+      const yearsOpt = w.picked ? `<span class="muted small">Showing ${esc(w.label)} (from the cycle filter above)</span>`
         : a.fc && b.fc ? `<div class="seg" role="group" aria-label="Years"><a href="${cmpHashY(a.id, b.id, false)}" class="${w.same ? "on" : ""}">Same years (${Math.max(a.fc, b.fc)}–${last})</a><a href="${cmpHashY(a.id, b.id, true)}" class="${w.same ? "" : "on"}">All years</a></div>`
         : `<span class="muted small">All years, ${cycles[0] - 1}–${last}</span>`;
       body = `<div class="cmp-opts">${yearsOpt}<button type="button" class="linkish" id="cmp-copy">Copy link to this comparison</button><input class="cmp-url" id="cmp-url" readonly hidden></div>
@@ -731,7 +794,7 @@
       body = `<p class="muted">Pick two politicians to see them side by side. Current members of Congress who got nothing from these PACs are included, so you can compare against $0.</p>`;
     }
     main.innerHTML = `<h1>Compare</h1>
-      <p class="sub">Pro-Israel PAC money to or for two politicians, side by side. ${state.group !== null ? esc(groups[state.group]) + " only. " : ""}</p>
+      <p class="sub">Pro-Israel PAC money to or for two politicians, side by side. ${state.grp !== null ? esc(grpWords()) + " only. " : ""}</p>
       <div class="cmp-pick">${picker(0, a)}<span class="vs">vs.</span>${picker(1, b)}</div>
       ${body}`;
     main.querySelectorAll(".picker").forEach((box) => {
@@ -839,21 +902,19 @@
     fl.push(`<a href="#/about">Data &amp; methods</a>`);
     fl.push(`<a id="report-foot" href="${esc(reportHref("site"))}" target="_blank" rel="noopener">Report a problem</a>`);
     $("#foot-links").innerHTML = fl.join(" · ");
-    const fc = $("#f-cycle");
-    fc.innerHTML = `<option value="">All cycles (${cycles[0] - 1}–${cycles[cycles.length - 1]})</option>` +
-      cycles.slice().reverse().map((c) => `<option value="${c}">${cycleLabel(c)}</option>`).join("");
-    const fg = $("#f-group");
-    fg.innerHTML = `<option value="">All pro-Israel PACs</option>` + groups.map((g) => `<option>${esc(g)}</option>`).join("");
     const here = () => (state.view === "compare" ? cmpIds() : state.id);
-    fc.addEventListener("change", () => { const v = parseInt(fc.value, 10); state.cycle = isNaN(v) ? null : cycles.indexOf(v); go(state.view, here()); });
-    fg.addEventListener("change", () => { state.group = fg.value ? groups.indexOf(fg.value) : null; go(state.view, here()); });
+    msel($("#f-cycle"), { all: `All cycles (${cycles[0] - 1}–${cycles[cycles.length - 1]})`, noun: "cycles", aria: "Election cycles",
+      items: cycles.map((c, ci) => ({ v: String(ci), t: cycleLabel(c) })).reverse(),
+      get: () => strSet(state.cyc), set: (v) => { state.cyc = intSet(v); go(state.view, here()); } });
+    msel($("#f-group"), { all: "All pro-Israel PACs", noun: "PAC groups", aria: "PAC groups",
+      items: groups.map((g, gi) => ({ v: String(gi), t: g })),
+      get: () => strSet(state.grp), set: (v) => { state.grp = intSet(v); go(state.view, here()); } });
   }
 
   function render() {
     parseHash();
-    $("#f-cycle").value = state.cycle === null ? "" : String(cycles[state.cycle]);
-    $("#f-group").value = state.group === null ? "" : groups[state.group];
-    $("#filter-note").textContent = state.cycle !== null && cycles[state.cycle] === cycles[cycles.length - 1] ? "Current cycle: newest reports may not be itemized yet" : "";
+    $("#f-cycle")._sync(); $("#f-group")._sync();
+    $("#filter-note").textContent = state.cyc !== null && state.cyc.has(cycles.length - 1) ? "Current cycle: newest reports may not be itemized yet" : "";
     document.querySelectorAll(".tabs a").forEach((a) => {
       const v = a.dataset.view;
       a.classList.toggle("active", v === state.view || (v === "politicians" && state.view === "politician") || (v === "pacs" && state.view === "pac"));
