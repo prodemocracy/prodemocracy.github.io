@@ -11,7 +11,8 @@
   const OFFICE = { H: "House", S: "Senate", P: "President" };
   const $ = (s, el) => (el || document).querySelector(s);
   const main = $("#main"), tip = $("#tooltip");
-  const state = { view: "overview", id: null, cycle: null, group: null,
+  const PBY = Object.fromEntries(POLS.map((p) => [p.id, p]));
+  const state = { view: "overview", id: null, id2: null, cmpAll: false, cycle: null, group: null, from: null, scrollTx: false,
                   q: "", party: "", office: "", st: "", sort: "total", dir: -1, limit: 50,
                   ksort: "total", kdir: -1 };
 
@@ -32,12 +33,14 @@
 
   /* ---------- filters & routing ---------- */
   function inFilter(ci, ki) {
-    return (state.cycle === null || ci === state.cycle) && (state.group === null || K[ki].g === state.group);
+    return (state.cycle === null || ci === state.cycle) && (state.group === null || K[ki].g === state.group)
+      && (state.from === null || state.cycle !== null || cycles[ci] >= state.from);
   }
   function polTotals(p, ignoreCycle) {
     const t = [0, 0, 0];
     for (const [ci, ki, ch, amt] of p.t) {
-      if ((ignoreCycle || state.cycle === null || ci === state.cycle) && (state.group === null || K[ki].g === state.group)) t[ch] += amt;
+      if ((ignoreCycle || state.cycle === null || ci === state.cycle) && (state.group === null || K[ki].g === state.group)
+          && (ignoreCycle || state.from === null || state.cycle !== null || cycles[ci] >= state.from)) t[ch] += amt;
     }
     return t;
   }
@@ -48,6 +51,11 @@
     const q = new URLSearchParams(query || "");
     state.view = parts[0] === "p" ? "politician" : parts[0] === "pac" ? "pac" : (parts[0] || "overview");
     state.id = parts[1] || null;
+    state.id2 = state.view === "compare" ? (parts[2] || null) : null;
+    state.cmpAll = q.get("years") === "all";
+    const fr = parseInt(q.get("from"), 10);
+    state.from = state.view === "politician" && cycles.includes(fr) && fr > cycles[0] ? fr : null;
+    state.scrollTx = q.get("tx") === "1";
     const cy = parseInt(q.get("cycle"), 10);
     state.cycle = cycles.includes(cy) ? cycles.indexOf(cy) : null;
     const g = q.get("group");
@@ -59,14 +67,20 @@
     const q = new URLSearchParams();
     if (state.cycle !== null) q.set("cycle", cycles[state.cycle]);
     if (state.group !== null) q.set("group", groups[state.group]);
-    const base = view === "politician" ? `#/p/${id}` : view === "pac" ? `#/pac/${id}` : view === "overview" ? "#/" : `#/${view}`;
+    if (view === "compare" && state.cmpAll) q.set("years", "all");
+    const base = view === "politician" ? `#/p/${id}` : view === "pac" ? `#/pac/${id}` : view === "overview" ? "#/"
+      : view === "compare" ? "#/compare" + (id ? "/" + id : "") : `#/${view}`;
     const qs = q.toString();
     return base + (qs ? "?" + qs : "");
   }
   function go(view, id) { location.hash = hashFor(view, id); }
+  const cmpIds = () => [state.id, state.id2].filter(Boolean).join("/");
+  const cmpHash = (a, b) => hashFor("compare", [a, b].filter(Boolean).join("/"));
+  const cmpHashY = (a, b, all) => { const keep = state.cmpAll; state.cmpAll = all; const h = cmpHash(a, b); state.cmpAll = keep; return h; };
   function filterNote() {
     const bits = [];
-    bits.push(state.cycle === null ? `All cycles ${cycles[0] - 1}–${cycles[cycles.length - 1]}` : `${cycleLabel(cycles[state.cycle])} cycle`);
+    bits.push(state.cycle !== null ? `${cycleLabel(cycles[state.cycle])} cycle` : state.from !== null ? `The ${state.from}–${cycles[cycles.length - 1]} cycles`
+      : `All cycles ${cycles[0] - 1}–${cycles[cycles.length - 1]}`);
     bits.push(state.group === null ? "all pro-Israel PACs" : groups[state.group]);
     return bits.join(" · ");
   }
@@ -239,8 +253,40 @@
   }
   const reportNote = (subject) => `<p class="muted small report">Something look wrong? <a href="${esc(reportHref(subject))}" target="_blank" rel="noopener">Report a problem ↗</a>. Include the line and its FEC link if you can (a free GitHub account is needed to post).</p>`;
 
+  /* ---------- photos: drop photos/<FEC candidate ID>.jpg into the site to replace a placeholder ---------- */
+  const photoState = {};                           // id -> url, or false when no file was found
+  const photoId = (p) => (p.now && PBY[p.now] ? p.now : p.id);
+  function initials(n) {
+    const w = String(n || "").replace(/[^A-Za-z\s'-]/g, " ").split(/\s+/).filter((x) => x && !/^(Jr|Sr|II|III|IV)$/i.test(x));
+    return ((w[0] || "")[0] || "") + (w.length > 1 ? w[w.length - 1][0] : "");
+  }
+  function photoSlot(p, cls) {
+    return `<div class="photo ${cls || ""}" data-photo="${esc(photoId(p))}" data-name="${esc(p.n)}"><div class="ph-box"><span class="ph-init" aria-hidden="true">${esc(initials(p.n).toUpperCase())}</span><span class="ph-txt">Photo coming soon</span></div></div>`;
+  }
+  function hydratePhotos(root) {
+    root.querySelectorAll(".photo[data-photo]").forEach((box) => {
+      const id = box.dataset.photo, name = box.dataset.name;
+      const show = (url) => { box.classList.add("has-img"); box.innerHTML = `<img src="${esc(url)}" alt="${esc(name)}">`; };
+      if (photoState[id]) return show(photoState[id]);
+      if (photoState[id] === false) return;
+      const tryExt = (exts) => {
+        if (!exts.length) { photoState[id] = false; return; }
+        const url = `photos/${id}.${exts[0]}`, img = new Image();
+        img.onload = () => { photoState[id] = url; if (box.isConnected) show(url); };
+        img.onerror = () => tryExt(exts.slice(1));
+        img.src = url;
+      };
+      tryExt(["jpg"]);
+    });
+  }
+
   /* ---------- transactions & FEC sources (loaded on demand) ---------- */
-  const TX_TYPE = ["Contribution", "Earmarked contribution", "Refund from campaign", "Void / correction"];
+  const TX_TYPE = ["Contribution", "Earmarked contribution", "Refunded to the PAC by the campaign", "Voided or corrected by the PAC",
+    "Refunded to the donor by the campaign"];
+  const RET_LABEL = { 2: "refunded to the PAC", 3: "voided by the PAC", 4: "refunded to the donor" };
+  const BASIS_TEXT = ["", "matched by donor name and a note naming the earmark or PAC", "matched by donor name and exact amount",
+    "matched because the refund names the PAC", "paired: same PAC, campaign and amount", "paired: same PAC, campaign and amount",
+    "the campaign's records show this donor gave only through the PAC", "counted only the part larger than the donor's direct gifts"];
   const loaded = {};
   function loadScript(src, cb) {
     if (loaded[src] === true) return cb(true);
@@ -269,20 +315,29 @@
     if (ch !== 0) return `https://www.fec.gov/data/independent-expenditures/?committee_id=${kid}&cycle=${cycle}${dd}`;
     return `https://www.fec.gov/data/${flag === 2 ? "receipts" : "disbursements"}/?committee_id=${kid}&two_year_transaction_period=${cycle}${dd}`;
   }
-  function srcLink(src, kid, cycle, r) {
+  function srcUrl(src, kid, cycle, d, ch, flag) {
     if (!src) return "";
-    const url = src === "c" ? fecRecord(kid, cycle, r[3], r[2], r[6])
-      : src[0] === "f" ? `https://docquery.fec.gov/cgi-bin/forms/${kid}/${src.slice(1)}/`
+    return src === "c" ? fecRecord(kid, cycle, d, ch, flag)
+      : src[0] === "f" || src[0] === "g" ? `https://docquery.fec.gov/cgi-bin/forms/${kid}/${src.slice(1)}/`
       : src.startsWith("http") ? src : `https://docquery.fec.gov/cgi-bin/fecimg/?${src}`;
-    const label = src === "c" ? "FEC record" : src[0] === "f" ? "Filing" : "Report page";
+  }
+  function srcLink(src, kid, cycle, r, label) {
+    const url = srcUrl(src, kid, cycle, r[3], r[2], r[6]);
+    if (!url) return "";
+    label = label || (src === "c" ? "FEC record" : src[0] === "f" || src[0] === "g" ? "Filing" : "Report page");
     return `<a href="${esc(url)}" target="_blank" rel="noopener"><span class="hide-sm">${label}</span><span class="show-sm">View</span> ↗</a>`;
   }
+  // the committee whose report holds a line: the campaign for refunds it sent to donors, otherwise the PAC
+  const filerOf = (flag, kid, ri) => (flag === 4 && ri >= 0 ? PD.recipients[ri][0] : kid);
   const fmtDate = (d) => d && d.length === 8 ? `${d.slice(4, 6)}/${d.slice(6)}/${d.slice(0, 4)}` : "—";
+  const dateCell = (d) => d && d.length === 8 ? `<span class="hide-sm">${fmtDate(d)}</span><span class="show-sm">${+d.slice(4, 6)}/${+d.slice(6)}/${d.slice(2, 4)}</span>` : "—";
   function txType(ch, flag, amt) {
     if (ch === 0) return TX_TYPE[flag];
     return (ch === 1 ? "Ad supporting" : "Ad opposing") + (amt < 0 ? " (correction)" : "");
   }
-  // A list of the filed lines behind a number; sums to the number shown above it
+  // A list of the filed lines behind a number; sums to the number shown above it.
+  // Row: [cycle, pac, channel, date, amount, source, flag, recipient, giveBack?]
+  // giveBack: [cycle, date, amount (negative), source, flag, howPaired] - money returned for this same donation
   function txPanel(box, key, opts) {
     const view = state.view, vid = state.id;
     box.innerHTML = `<p class="muted small">Loading the filed transactions…</p>`;
@@ -290,18 +345,47 @@
       if (state.view !== view || state.id !== vid) return;
       if (rows === null) { box.innerHTML = `<p class="muted small">Couldn't load the transaction list. The downloads on the Data &amp; methods page have every line.</p>`; return; }
       const R = PD.recipients;
-      const base = rows.filter((r) => inFilter(r[0], r[1]));
+      const inMain = (r) => inFilter(r[0], r[1]);
+      const inBack = (r) => !!r[8] && inFilter(r[8][0], r[1]);
+      const base = rows.filter((r) => inMain(r) || inBack(r));
       const kset = [...new Set(base.map((r) => r[1]))].sort((a, b) => a - b);
       let pac = opts.pac != null && kset.includes(opts.pac) ? opts.pac : null, shown = 100;
+      const giveBack = (r) => {                       // returned money shown for this row, and whether it counts here
+        if (r[8]) return { amt: r[8][2], counts: inBack(r), d: r[8][1], src: r[8][3], flag: r[8][4], basis: r[8][5], ci: r[8][0] };
+        if (r[4] < 0 && r[2] === 0) return { amt: r[4], counts: inMain(r), d: r[3], src: r[5], flag: r[6], basis: 0, ci: r[0], own: true };
+        return null;
+      };
       const draw = () => {
         const list = pac === null ? base : base.filter((r) => r[1] === pac);
-        const total = list.reduce((s, r) => s + r[4], 0);
+        let recv = 0, ret = 0, other = 0;
+        for (const r of list) {
+          const g = giveBack(r);
+          if (g && g.own) { if (g.counts) ret += g.amt; continue; }
+          if (inMain(r)) { if (r[2] === 0) recv += r[4]; else other += r[4]; }
+          if (g && g.counts) ret += g.amt;
+        }
+        const total = recv + ret + other;
+        const pct = recv > 0 && ret ? ` (${(-ret / recv * 100).toFixed(-ret / recv < 0.1 ? 1 : 0)}%)` : "";
         const sel = opts.showPac && kset.length > 1 ? `<label class="small muted">PAC <select id="tx-pac"><option value="">All PACs (${kset.length})</option>${
           kset.map((ki) => `<option value="${ki}" ${ki === pac ? "selected" : ""}>${esc(K[ki].n)}</option>`).join("")}</select></label>` : "";
-        box.innerHTML = `<div class="tx-head">${sel}<span class="small muted">${list.length.toLocaleString("en-US")} line${list.length === 1 ? "" : "s"} · sum ${money(total, true)}${
-          pac === null && opts.expect != null ? (Math.abs(total - opts.expect) < 1 ? ` · matches ${opts.expectLabel || "the total above"}` : ` · differs from ${opts.expectLabel || "the total above"} by ${money(total - opts.expect, true)}`) : ""}</span></div>
-          ${list.length ? `<div class="tx-scroll"><table class="tx"><thead><tr><th>Date</th>${opts.showPac ? "<th>PAC</th>" : ""}<th class="hide-sm">To</th><th class="hide-sm">Type</th><th class="num">Amount</th><th>Source</th></tr></thead><tbody>${
-          list.slice(0, shown).map((r) => `<tr><td class="nowrap">${fmtDate(r[3])}${opts.showPac ? "" : `<div class="small muted show-sm">${txType(r[2], r[6], r[4])}</div>`}</td>${opts.showPac ? `<td>${esc(K[r[1]].n)}<div class="small muted show-sm">${txType(r[2], r[6], r[4])}</div></td>` : ""}<td class="hide-sm small">${r[7] >= 0 ? esc(R[r[7]][1]) : "—"}</td><td class="hide-sm small">${txType(r[2], r[6], r[4])}</td><td class="num nowrap">${money(r[4], true)}</td><td class="small nowrap">${srcLink(r[5], K[r[1]].id, cycles[r[0]], r)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="muted small">No lines for these filters.</p>`}
+        const sums = recv || ret ? `received ${money(recv, true)} · returned ${money(-ret, true)}${pct} · kept ${money(recv + ret, true)}${other ? ` · ads ${money(other, true)}` : ""}` : `sum ${money(total, true)}`;
+        const check = pac === null && opts.expect != null ? (Math.abs(total - opts.expect) < 1 ? ` · matches ${opts.expectLabel || "the total above"}` : ` · differs from ${opts.expectLabel || "the total above"} by ${money(total - opts.expect, true)}`) : "";
+        const backCell = (r, g) => {
+          if (!g) return "—";
+          const kid = filerOf(g.flag, K[r[1]].id, r[7]);
+          const link = srcLink(g.src, kid, cycles[g.ci], [g.ci, r[1], 0, g.d, g.amt, g.src, g.flag], g.flag === 4 ? "Campaign report" : null);
+          return `<span class="neg">${money(g.amt, true)}</span><div class="small muted">${fmtDate(g.d)}${g.own ? "" : " · " + esc(RET_LABEL[g.flag] || "returned")}${g.counts ? "" : ` · counted in the ${cycles[g.ci]} cycle`}</div>`
+            + (g.own ? "" : `<div class="small">${link}${g.basis ? `<span class="muted hide-sm" title="${esc(BASIS_TEXT[g.basis])}"> ⓘ</span>` : ""}</div>`);
+        };
+        box.innerHTML = `<div class="tx-head">${sel}<span class="small muted">${list.length.toLocaleString("en-US")} line${list.length === 1 ? "" : "s"} · ${sums}${check}</span></div>
+          ${list.length ? `<div class="tx-scroll"><table class="tx"><thead><tr><th>Date</th>${opts.showPac ? "<th>PAC</th>" : ""}<th class="hide-sm">To</th><th class="hide-sm">Type</th><th class="num">Amount</th><th class="num hide-sm">Returned</th><th>Source</th></tr></thead><tbody>${
+          list.slice(0, shown).map((r) => {
+            const g = giveBack(r), main_ = inMain(r);
+            const amtCell = g && g.own ? "—" : `${main_ ? money(r[4], true) : `<span class="muted">${money(r[4], true)}</span><div class="small muted">counted in the ${cycles[r[0]]} cycle</div>`}`
+              + (g && !g.own ? `<div class="show-sm small wrap"><span class="neg">${money(g.amt, true)}</span> returned</div>` : "");
+            const typ = txType(r[2], r[6], r[4]) + (r[7] >= 0 && R[r[7]][2] ? " (joint fundraising committee)" : "");
+            return `<tr><td class="nowrap">${dateCell(r[3])}${opts.showPac ? "" : `<div class="small muted show-sm">${typ}</div>`}</td>${opts.showPac ? `<td>${esc(K[r[1]].n)}<div class="small muted show-sm">${typ}</div></td>` : ""}<td class="hide-sm small">${r[7] >= 0 ? esc(R[r[7]][1]) : "—"}</td><td class="hide-sm small">${typ}</td><td class="num nowrap">${amtCell}</td><td class="num nowrap hide-sm">${backCell(r, g)}</td><td class="small nowrap">${srcLink(r[5], filerOf(r[6], K[r[1]].id, r[7]), cycles[r[0]], r, r[6] === 4 ? "Campaign report" : null)}</td></tr>`;
+          }).join("")}</tbody></table></div>` : `<p class="muted small">No lines for these filters.</p>`}
           ${list.length > shown ? `<button class="linkish" type="button" id="tx-more">${list.length - shown <= 250 ? `Show the other ${(list.length - shown).toLocaleString("en-US")}` : `Show 250 more (${(list.length - shown).toLocaleString("en-US")} not shown yet)`}</button>` : ""}`;
         const ps = box.querySelector("#tx-pac");
         if (ps) ps.addEventListener("change", () => { pac = ps.value === "" ? null : parseInt(ps.value, 10); shown = 100; draw(); });
@@ -405,10 +489,10 @@
       const q = state.q.trim().toLowerCase();
       let rows = POLS.filter((p) => (!q || p.n.toLowerCase().includes(q)) && (!state.party || p.p === state.party)
         && (!state.office || p.o === state.office) && (!state.st || p.s === state.st))
-        .map((p) => ({ p, v: polTotals(p) })).filter((x) => Math.abs(sum3(x.v)) >= 1);
+        .map((p) => ({ p, v: polTotals(p) })).filter((x) => Math.abs(sum3(x.v)) >= 1 || (q && x.p.cm));
       const key = { total: (x) => sum3(x.v), c: (x) => x.v[0], s: (x) => x.v[1], o: (x) => x.v[2], name: (x) => x.p.n };
       rows.sort((a, b) => { const A = key[state.sort](a), B = key[state.sort](b); return (A < B ? -1 : A > B ? 1 : 0) * state.dir; });
-      $("#count").textContent = `${rows.length.toLocaleString("en-US")} politicians`;
+      $("#count").textContent = `${rows.length.toLocaleString("en-US")} politician${rows.length === 1 ? "" : "s"}`;
       const head = [["name", "Politician"], [null, "Party"], ["c", "Contributions"], ["s", "Ads for"], ["o", "Ads against"], ["total", "Total"]];
       $("#ptable").innerHTML = `<thead><tr>${head.map(([k, l], i) => `<th class="${k ? "sortable" : ""} ${i >= 2 ? "num" : ""}" data-k="${k || ""}">${l}${state.sort === k ? ` <span class="arrow">${state.dir < 0 ? "▼" : "▲"}</span>` : ""}</th>`).join("")}</tr></thead>
         <tbody>${rows.slice(0, state.limit).map((x) => `<tr class="clickable" data-id="${esc(x.p.id)}">
@@ -433,7 +517,26 @@
   function viewPolitician(id) {
     const p = POLS.find((x) => x.id === id);
     if (!p) { main.innerHTML = `<a class="back" href="${hashFor("politicians")}">← Politicians</a><h1>Not found</h1><p class="sub">No money from these PACs is recorded for this candidate.</p>`; return; }
+    const seatOf = (x) => x.cs || x.seat || OFFICE[x.o] || "";
+    const head = `<div class="pol-head">${photoSlot(p)}<div><h1>${esc(p.n)}</h1>
+      <div class="facts"><span class="pill">${esc(PARTY[p.p])}${p.pf && p.p === "O" ? " · " + esc(p.pf) : ""}</span><span class="pill">${esc(seatOf(p))}</span>${p.cm ? '<span class="pill">Serving in Congress now</span>' : p.inc && !p.now ? `<span class="pill">${esc(p.inc)}</span>` : ""}
+        ${p.u ? '<span class="pill">Filings did not include a valid FEC candidate ID</span>' : `<a class="small" href="${fecCand(p.id)}" target="_blank" rel="noopener">FEC page ↗</a>`}
+        <a class="small" href="${cmpHash(p.now || p.id)}">Compare →</a></div></div></div>
+      ${p.now && PBY[p.now] ? `<p class="callout">This page is ${esc(p.n)}'s campaign for ${esc(seatOf(p))}. ${esc(p.n)} now serves as ${esc(seatOf(PBY[p.now]))}: <a href="${hashFor("politician", p.now)}">see that page</a>.</p>` : ""}`;
+    if (!p.t.length) {                       // a current member with no money from these PACs
+      const other = (p.al || []).map((a) => PBY[a]).filter((x) => x && x.t.length);
+      main.innerHTML = `<a class="back" href="${hashFor("politicians")}">← Politicians</a>${head}
+        <div class="zero"><div class="value">$0</div><p>${other.length ? `No money from these PACs to this campaign.` : `None of the ${K.length} pro-Israel PACs on this site reported giving money to ${esc(p.n)}, or running ads for or against ${esc(p.n)}, in their FEC filings from ${cycles[0] - 1} through ${esc(new Date(PD.meta.generated + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }))}.`}</p>
+        ${other.length ? `<p>Money to ${esc(p.n)}'s other campaign${other.length > 1 ? "s" : ""} is on ${other.length > 1 ? "their own pages" : "its own page"}: ${other.map((x) => `<a href="${hashFor("politician", x.id)}">${esc(seatOf(x))} campaign</a>`).join(", ")}.</p>` : ""}
+        <p class="small muted">This covers the PACs listed under <a href="#/about">Data &amp; methods</a>. Money a PAC gave to a party or a joint fundraising committee without naming a candidate isn't attributed to anyone, and the newest reports can take a few weeks to be itemized.</p></div>
+        <p><a href="${cmpHash(p.id)}">Compare ${esc(p.n)} with another politician →</a></p>
+        ${reportNote(p.n)}`;
+      return;
+    }
     const t = polTotals(p);
+    let jfcAmt = 0;
+    for (const [ci, ki, amt] of (p.j || [])) if (inFilter(ci, ki)) jfcAmt += amt;
+    const jn = p.jn || [];
     let returned = 0;
     for (const [ci, ki, amt] of (p.r || [])) if (inFilter(ci, ki)) returned += amt;
     const byK = {};
@@ -448,10 +551,11 @@
     const firstC = acc.findIndex((v) => sum3(v)), lastC = acc.length - 1 - [...acc].reverse().findIndex((v) => sum3(v));
     main.innerHTML = `
       <a class="back" href="${hashFor("politicians")}">← Politicians</a>
-      <h1>${esc(p.n)}</h1>
-      <div class="facts"><span class="pill">${esc(PARTY[p.p])}${p.pf && p.p === "O" ? " · " + esc(p.pf) : ""}</span><span class="pill">${esc(p.seat || OFFICE[p.o] || "")}</span>${p.inc ? `<span class="pill">${esc(p.inc)}</span>` : ""}
-        ${p.u ? '<span class="pill">Filings did not include a valid FEC candidate ID</span>' : `<a class="small" href="${fecCand(p.id)}" target="_blank" rel="noopener">FEC page ↗</a>`}</div>
-      ${tiles(t, ["PACs involved", krows.length, ""], returned >= 1 ? `What the campaign kept: ${money(returned, true)} it returned (or that was voided) is already subtracted` : esc(filterNote()))}
+      ${head}
+      ${state.from !== null && state.cycle === null ? `<p class="callout">Showing the ${state.from}–${cycles[cycles.length - 1]} cycles, to match the comparison you came from. <a href="${hashFor("politician", p.id)}">Show all cycles</a></p>` : ""}
+      ${tiles(t, ["PACs involved", krows.length, ""], esc(filterNote()))}
+      ${t[0] + returned >= 1 ? `<div class="kept"><div><span class="label">Contributions received</span><b>${money(t[0] + returned, true)}</b></div><div><span class="label">Returned</span><b>${money(returned, true)}</b><span class="muted small"> ${((returned / (t[0] + returned)) * 100).toFixed(returned && returned / (t[0] + returned) < 0.1 ? 1 : 0)}%</span></div><div><span class="label">Kept</span><b>${money(t[0], true)}</b></div><p class="small muted">Returned counts money the campaign refunded (to the PAC or straight to the donor) or the PAC voided. Only money that was accepted and then given back is on record; the FEC has no record of money a candidate turned down.</p></div>` : ""}
+      ${jfcAmt >= 1 ? `<p class="callout">Includes ${money(jfcAmt, true)} given to ${jn.length === 1 ? esc(jn[0]) + ", a joint fundraising committee" : "joint fundraising committees" + (jn.length ? " (" + esc(jn.join(", ")) + ")" : "")}. A joint fundraising committee divides what it raises among the committees that formed it: the candidate's campaign and, often, a leadership PAC or party committee. So not all of this necessarily went to the candidate's own campaign.</p>` : ""}
       ${p.x && (p.x[0] || p.x[1]) && state.group === null ? `<p class="callout">Context, not counted above: PACs that AIPAC's super PAC (UDP) helped fund also spent ${money(p.x[0], true)} supporting and ${money(p.x[1], true)} opposing this politician (2022 cycle onward).</p>` : ""}
       <section class="panel" id="p-pc"><div class="panel-head"><div><h2>By election cycle</h2><p>All cycles shown${state.group !== null ? ", " + esc(groups[state.group]) + " only" : ""}. The cycle filter applies to the totals and table</p></div></div>
         ${legend([0, 1, 2])}<div class="chart" id="c-pc"></div></section>
@@ -535,7 +639,132 @@
     if (PD.meta.tx && $("#tx-box")) txPanel($("#tx-box"), "K:" + k.id, { showPac: false, expect: tt.notTied, expectLabel: `the ${money(tt.notTied, true)} not tied to one politician in the Total box` });
   }
 
+  /* ---------- compare two politicians ---------- */
+  const PICK = POLS.filter((p) => !(p.now && PBY[p.now])).map((p) => ({ p, key: p.n.toLowerCase(),
+    tot: p.t.reduce((a, x) => a + x[3], 0) }));
+  const seatLabel = (p) => p.cs || p.seat || OFFICE[p.o] || "";
+  const pickLabel = (p) => `${p.n} (${p.p}, ${seatLabel(p)})`;
+  const resolvePol = (id) => { let p = id ? PBY[id] : null; if (p && p.now && PBY[p.now]) p = PBY[p.now]; return p || null; };
+  function cmpTotals(p, w) {
+    const v = [0, 0, 0], g = groups.map(() => 0), cy = {}, other = [];
+    let ret = 0, jf = 0;
+    const ok = (ci, ki) => cycles[ci] >= w.from && cycles[ci] <= w.to && (state.group === null || K[ki].g === state.group);
+    for (const id of [p.id, ...(p.al || [])]) {
+      const q = PBY[id]; if (!q) continue;
+      let mine = 0;
+      for (const [ci, ki, ch, amt] of q.t) {
+        if (!ok(ci, ki)) continue;
+        v[ch] += amt; if (ch < 2) mine += amt;
+        if (ch < 2) { g[K[ki].g] += amt; cy[cycles[ci]] = (cy[cycles[ci]] || 0) + amt; }
+      }
+      for (const [ci, ki, amt] of (q.r || [])) if (ok(ci, ki)) ret += amt;
+      for (const [ci, ki, amt] of (q.j || [])) if (ok(ci, ki)) jf += amt;
+      if (id !== p.id && Math.abs(mine) >= 0.5) other.push({ q, amt: mine });
+    }
+    return { v, g, cy, ret, jf, other, head: v[0] + v[1] };
+  }
+  function viewCompare() {
+    const a = resolvePol(state.id), b = resolvePol(state.id2);
+    const last = cycles[cycles.length - 1];
+    let w;
+    if (state.cycle !== null) w = { from: cycles[state.cycle], to: cycles[state.cycle], label: `the ${cycleLabel(cycles[state.cycle])} cycle` };
+    else if (a && b && a.fc && b.fc && !state.cmpAll) { const f = Math.max(a.fc, b.fc); w = { from: f, to: last, label: `the ${f}–${last} cycles`, same: true }; }
+    else w = { from: cycles[0], to: last, label: `all cycles, ${cycles[0] - 1}–${last}` };
+    const picker = (slot, p) => `<div class="picker" data-slot="${slot}"><label>${slot ? "Second" : "First"} politician
+        <input type="search" autocomplete="off" placeholder="Type a name" value="${p ? esc(pickLabel(p)) : ""}" aria-label="${slot ? "Second" : "First"} politician"></label>
+        <ul class="suggest" role="listbox" hidden></ul></div>`;
+    let body = "";
+    if (a && b) {
+      const A = cmpTotals(a, w), B = cmpTotals(b, w);
+      const lead = A.head > B.head + 0.5 ? 0 : B.head > A.head + 0.5 ? 1 : -1;
+      const shortN = (p, o) => { const l = p.n.split(" ").filter((x) => !/^(Jr\.?|Sr\.?|II|III|IV)$/.test(x)).pop(); const lo = o.n.split(" ").filter((x) => !/^(Jr\.?|Sr\.?|II|III|IV)$/.test(x)).pop(); return l === lo ? p.n : l; };
+      const nA = shortN(a, b), nB = shortN(b, a);
+      // links into a politician's page, filtered to match what's shown here (cycles, group), optionally opened at the transactions
+      const polLink = (p, o) => {
+        o = o || {};
+        const q = new URLSearchParams();
+        const cyc = o.cycle != null ? o.cycle : state.cycle !== null ? cycles[state.cycle] : null;
+        if (cyc != null) q.set("cycle", cyc); else if (w.same && w.from > cycles[0]) q.set("from", w.from);
+        const g = o.group != null ? o.group : state.group !== null ? groups[state.group] : null;
+        if (g) q.set("group", g);
+        if (o.tx) q.set("tx", "1");
+        const qs = q.toString();
+        return `#/p/${p.id}` + (qs ? "?" + qs : "");
+      };
+      const card = (p, T, isLead) => `<div class="cmp-card${isLead ? " lead" : ""}">
+          ${isLead ? '<span class="cmp-badge">Higher total</span>' : ""}
+          ${photoSlot(p, "cmp-photo")}
+          <a class="cmp-name" href="${polLink(p)}">${esc(p.n)}</a>
+          <div class="muted small">${esc(PARTY[p.p])} · ${esc(seatLabel(p))}</div>
+          <div class="cmp-val">${money(T.head, true)}</div>
+          <div class="muted small">to or for them</div>
+          <dl class="cmp-lines">
+            <div><dt>Contributions kept</dt><dd>${money(T.v[0], true)}</dd></div>
+            <div><dt>Ads supporting</dt><dd>${money(T.v[1], true)}</dd></div>
+            <div><dt>Ads opposing</dt><dd>${money(T.v[2], true)}</dd></div>
+          </dl>
+          ${T.ret >= 1 ? `<p class="small muted">${money(T.ret, true)} given back, already subtracted</p>` : ""}
+          ${T.jf >= 1 ? `<p class="small muted">Includes ${money(T.jf, true)} to a joint fundraising committee</p>` : ""}
+          ${T.other.map((o) => `<p class="small muted">Includes ${money(o.amt, true)} to their ${esc(seatLabel(o.q))} campaign (<a href="${polLink(o.q, { tx: 1 })}">its transactions</a>)</p>`).join("")}
+          <a class="cmp-tx" href="${polLink(p, { tx: 1 })}">${Math.abs(T.head) >= 0.5 || T.v[2] ? "See every transaction behind this →" : "How the $0 was checked →"}</a>
+        </div>`;
+      const from = state.group === null ? "pro-Israel PACs" : groups[state.group];
+      const diff = lead < 0
+        ? (A.head < 0.5 ? `Neither got money from ${esc(from)} in ${w.label}.` : `Both got the same amount from ${esc(from)} in ${w.label}.`)
+        : `<b>${esc((lead ? b : a).n)}</b> got <b>${money(Math.abs(A.head - B.head), true)} more</b> than ${esc((lead ? a : b).n)} from ${esc(from)}, ${w.label}.`;
+      const cell = (x, y, href) => `<td class="num${x > y + 0.5 ? " win" : ""}">${Math.abs(x) >= 0.5 ? (href ? `<a href="${href}">${money(x, true)}</a>` : money(x, true)) : "—"}</td>`;
+      const grows = groups.map((g, gi) => [g, A.g[gi], B.g[gi]]).filter((r) => Math.abs(r[1]) >= 0.5 || Math.abs(r[2]) >= 0.5);
+      const cys = cycles.filter((c) => c >= w.from && c <= w.to && (Math.abs(A.cy[c] || 0) >= 0.5 || Math.abs(B.cy[c] || 0) >= 0.5));
+      const yearsOpt = state.cycle !== null ? `<span class="muted small">Showing ${esc(w.label)} (from the cycle filter above)</span>`
+        : a.fc && b.fc ? `<div class="seg" role="group" aria-label="Years"><a href="${cmpHashY(a.id, b.id, false)}" class="${w.same ? "on" : ""}">Same years (${Math.max(a.fc, b.fc)}–${last})</a><a href="${cmpHashY(a.id, b.id, true)}" class="${w.same ? "" : "on"}">All years</a></div>`
+        : `<span class="muted small">All years, ${cycles[0] - 1}–${last}</span>`;
+      body = `<div class="cmp-opts">${yearsOpt}<button type="button" class="linkish" id="cmp-copy">Copy link to this comparison</button><input class="cmp-url" id="cmp-url" readonly hidden></div>
+        <div class="cmp-cards">${card(a, A, lead === 0)}${card(b, B, lead === 1)}</div>
+        <p class="cmp-diff">${diff}</p>
+        ${grows.length ? `<section class="panel" style="padding:0;overflow:auto"><table><thead><tr><th>PAC group</th><th class="num">${esc(nA)}</th><th class="num">${esc(nB)}</th></tr></thead><tbody>
+          ${grows.map((r) => `<tr><td>${esc(r[0])}</td>${cell(r[1], r[2], polLink(a, { group: r[0], tx: 1 }))}${cell(r[2], r[1], polLink(b, { group: r[0], tx: 1 }))}</tr>`).join("")}</tbody></table></section>` : ""}
+        ${cys.length > 1 ? `<section class="panel" style="padding:0;overflow:auto"><table><thead><tr><th>Election cycle</th><th class="num">${esc(nA)}</th><th class="num">${esc(nB)}</th></tr></thead><tbody>
+          ${cys.map((c) => `<tr><td>${cycleLabel(c)}</td>${cell(A.cy[c] || 0, B.cy[c] || 0, polLink(a, { cycle: c, tx: 1 }))}${cell(B.cy[c] || 0, A.cy[c] || 0, polLink(b, { cycle: c, tx: 1 }))}</tr>`).join("")}</tbody></table></section>` : ""}
+        <p class="muted small">"To or for them" is contributions they kept (after money given back) plus ads supporting them; ads opposing them are listed separately. "Same years" starts with the election cycle in which the more recently elected of the two first won a seat in Congress. Totals include a member's other federal campaigns, such as a House run before the Senate. Click any amount to open the transactions behind it on that politician's page; each line there links to the FEC filing it came from.</p>
+        ${reportNote(`Compare ${a.n} / ${b.n}`)}`;
+    } else {
+      body = `<p class="muted">Pick two politicians to see them side by side. Current members of Congress who got nothing from these PACs are included, so you can compare against $0.</p>`;
+    }
+    main.innerHTML = `<h1>Compare</h1>
+      <p class="sub">Pro-Israel PAC money to or for two politicians, side by side. ${state.group !== null ? esc(groups[state.group]) + " only. " : ""}</p>
+      <div class="cmp-pick">${picker(0, a)}<span class="vs">vs.</span>${picker(1, b)}</div>
+      ${body}`;
+    main.querySelectorAll(".picker").forEach((box) => {
+      const inp = box.querySelector("input"), ul = box.querySelector("ul"), slot = +box.dataset.slot;
+      let hits = [];
+      const choose = (p) => {
+        const ids = [a ? a.id : null, b ? b.id : null]; ids[slot] = p.id;
+        location.hash = ids[0] ? cmpHash(ids[0], ids[1]) : cmpHash(ids[1], null);
+      };
+      const draw = () => {
+        const q = inp.value.trim().toLowerCase();
+        hits = q.length < 2 ? [] : PICK.filter((x) => x.key.includes(q)).sort((x, y) => (y.p.cm ? 1 : 0) - (x.p.cm ? 1 : 0) || y.tot - x.tot).slice(0, 8);
+        ul.innerHTML = hits.map((x, i) => `<li role="option" data-i="${i}">${esc(x.p.n)} <span class="muted small">${esc(x.p.p)} · ${esc(seatLabel(x.p))}${x.p.cm ? " · in Congress now" : ""}</span></li>`).join("");
+        ul.hidden = !hits.length;
+      };
+      inp.addEventListener("focus", () => { if (inp.value.includes("(")) inp.select(); });
+      inp.addEventListener("input", draw);
+      inp.addEventListener("keydown", (e) => { if (e.key === "Enter" && hits.length) { e.preventDefault(); choose(hits[0].p); } if (e.key === "Escape") ul.hidden = true; });
+      ul.addEventListener("mousedown", (e) => { const li = e.target.closest("li"); if (li) { e.preventDefault(); choose(hits[+li.dataset.i].p); } });
+      inp.addEventListener("blur", () => setTimeout(() => { ul.hidden = true; }, 150));
+    });
+    const cp = $("#cmp-copy");
+    if (cp) cp.addEventListener("click", () => {
+      const url = location.href, done = () => { cp.textContent = "Link copied"; setTimeout(() => { cp.textContent = "Copy link to this comparison"; }, 2000); };
+      const fallback = () => { const u = $("#cmp-url"); u.hidden = false; u.value = url; u.focus(); u.select(); cp.textContent = "Copy this link:"; };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(url).then(done, fallback); else fallback();
+    });
+  }
+
   function viewAbout() {
+    const cr = (PD.accuracy || {}).campaignRefunds && Object.keys(PD.accuracy.campaignRefunds).length ? PD.accuracy.campaignRefunds : null;
+    const n2 = (v) => v ? `${v[0].toLocaleString("en-US")} (${money(v[1], true)})` : "none";
+    const list2 = (head, items) => { const xs = items.filter((x) => x[0] && x[0][0]).map((x) => `${n2(x[0])} ${x[1]}`); return xs.length ? `${head}: ${xs.join("; ")}.` : ""; };
     const A = PD.accuracy, st = A.status;
     const pct = (a, b) => b ? ((a - b) / b * 100) : 0;
     const l = A.l23_1990_2024, diff = pct(l[0], l[1]);
@@ -554,7 +783,10 @@
       <ul>
         <li><strong>Contributions:</strong> money a PAC gave to a candidate's campaign, leadership PAC, party or joint fundraising committee. This includes <strong>earmarked donations</strong>: when a donor gives through a PAC like AIPAC PAC or JStreetPAC, the PAC reports passing the money on, and it counts here.</li>
         <li><strong>Ads supporting or opposing candidates</strong> (independent expenditures): TV, digital and mail paid for by a PAC, reported with the candidate it supported or opposed.</li>
-        <li><strong>Money given back is subtracted.</strong> When a campaign returns a contribution, or a PAC voids one, the totals drop by that amount, so they show what candidates kept.</li>
+        <li><strong>Money given back is subtracted.</strong> Totals show what candidates kept. Three kinds of give-back count: a campaign refunding a PAC (on the PAC's report), a PAC voiding a payment (on the PAC's report), and a campaign refunding an earmarked donation straight to the donor (on the campaign's own report). Where a give-back can be tied to the donation it reverses, it sits on the same line in the transaction lists, with its own link to the filing. Otherwise it gets its own line. Politician pages show contributions received, returned and kept. The FEC only records money that was accepted and then given back; money a candidate declined up front leaves no record.</li>
+        ${cr ? `<li><strong>How refunds to donors are matched.</strong> A campaign that returns an earmarked donation usually refunds the donor directly, so the site reads each campaign's refunds to individuals and matches them to the earmarked donation they reverse. For each refund to a donor who gave through a PAC, the site also checks the campaign's own records of that donor's gifts: only the part of a refund that can't have come from the donor's direct gifts counts as PAC money, so the amount subtracted is a guaranteed minimum. Donor names are used only for matching and are never published. ${list2("Matched", [[cr.receipts_confirm, "where the campaign's records show the donor gave only through the PAC"], [cr.receipts_partial, "where the donor also gave directly, counting only the part of the refund larger than those direct gifts"], [cr.donor_and_conduit, "by the donor's name plus a note naming the earmark or PAC"], [cr.conduit_named, "because the refund itself names the PAC"], [cr.donor_and_amount, "by the donor's name and the exact amount, where the campaign's records couldn't be checked"]])} ${list2("Not subtracted", [[cr.receipts_direct_possible, "that could be entirely the donor's direct money"], [cr.unmatched_mention, "that mention an earmark but match none"], [cr.partial_name_match, "partial refunds where the campaign's records couldn't be checked"]])}</li>` : ""}
+        <li><strong>Joint fundraising committees.</strong> Money a PAC gave to a joint fundraising committee counts for the candidate the filing names. These committees divide what they raise among the committees that formed them (the candidate's campaign and often a leadership PAC or party committee), so politician pages show how much of a total went to one, and the transaction lists label those lines.</li>
+        <li><strong>Current members of Congress with $0</strong> are included, so they can be looked up and compared. The list of who is serving now comes from the public-domain <a href="https://github.com/unitedstates/congress-legislators" target="_blank" rel="noopener">congress-legislators</a> project, which also links each member to their FEC candidate IDs. A member's compare totals include their other federal campaigns, such as a House run before the Senate.</li>
         <li><strong>Money moved between PACs is not counted as money to politicians</strong>, so each dollar is counted once, where it was given to or spent on a politician. That includes UDP's payments to other super PACs.</li>
       </ul>
 
@@ -567,7 +799,7 @@
       <ul>
         <li><strong>Contributions, 1990–2024:</strong> ${money(l[0], true)} in this dataset vs. ${money(l[1], true)} on the committees' FEC report summaries (${diff >= 0 ? "+" : ""}${diff.toFixed(2)}%).</li>
         <li><strong>Ad spending per candidate:</strong> ${n("candidate_ie|MATCH")} of ${n("candidate_ie|MATCH") + n("candidate_ie|CHECK") + n("candidate_ie|EXPLAINED")} candidate totals match the FEC's own per-candidate figures exactly; ${n("candidate_ie|EXPLAINED")} more differ for a documented reason.</li>
-        ${A.refunds && A.refunds[1] ? `<li><strong>Money given back:</strong> for ${A.refunds[0]} of ${A.refunds[1]} PAC-cycles, the refunds subtracted here equal the refund total on the PAC's FEC report summary exactly. Most of the rest are refunds the PAC had already voided (so they aren't subtracted twice) or early reports the FEC never itemized.</li>` : ""}
+        ${A.refunds && A.refunds[1] ? `<li><strong>Refunds to PACs:</strong> for ${A.refunds[0]} of ${A.refunds[1]} PAC-cycles, the refunds subtracted here equal the refund total on the PAC's FEC report summary exactly. Most of the rest are refunds the PAC had already voided (so they aren't subtracted twice) or early reports the FEC never itemized.</li>` : ""}
         ${n("completeness|MATCH") + n("completeness|CHECK") ? `<li><strong>Completeness:</strong> ${n("completeness|MATCH")} of ${n("completeness|MATCH") + n("completeness|CHECK")} downloads returned exactly as many rows as the FEC says exist.</li>` : ""}
         <li><strong>The current cycle lags.</strong> The FEC itemizes reports days to weeks after they're filed. AIPAC PAC's itemized data runs through ${esc(PD.meta.aipacThru)}, and UDP's through ${esc(PD.meta.udpThru)} (including 24- and 48-hour notices for recent ads).</li>
       </ul>
@@ -612,8 +844,9 @@
       cycles.slice().reverse().map((c) => `<option value="${c}">${cycleLabel(c)}</option>`).join("");
     const fg = $("#f-group");
     fg.innerHTML = `<option value="">All pro-Israel PACs</option>` + groups.map((g) => `<option>${esc(g)}</option>`).join("");
-    fc.addEventListener("change", () => { const v = parseInt(fc.value, 10); state.cycle = isNaN(v) ? null : cycles.indexOf(v); go(state.view, state.id); });
-    fg.addEventListener("change", () => { state.group = fg.value ? groups.indexOf(fg.value) : null; go(state.view, state.id); });
+    const here = () => (state.view === "compare" ? cmpIds() : state.id);
+    fc.addEventListener("change", () => { const v = parseInt(fc.value, 10); state.cycle = isNaN(v) ? null : cycles.indexOf(v); go(state.view, here()); });
+    fg.addEventListener("change", () => { state.group = fg.value ? groups.indexOf(fg.value) : null; go(state.view, here()); });
   }
 
   function render() {
@@ -632,7 +865,9 @@
     else if (state.view === "pacs") viewPacs();
     else if (state.view === "pac") viewPac(state.id);
     else if (state.view === "about") viewAbout();
+    else if (state.view === "compare") viewCompare();
     else viewOverview();
+    hydratePhotos(main);
     const rf = $("#report-foot");
     if (rf) rf.href = reportHref((($("h1", main) || {}).textContent || "site").trim());
   }
@@ -642,7 +877,12 @@
     clearTimeout(rt);
     rt = setTimeout(() => { if (Math.abs(window.innerWidth - lastW) > 40) { lastW = window.innerWidth; render(); } }, 200);
   });
-  window.addEventListener("hashchange", () => { render(); window.scrollTo(0, 0); });
+  function scrollAfter() {
+    const tx = state.scrollTx && $("#p-tx");
+    if (tx) tx.scrollIntoView({ block: "start" }); else window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", () => { render(); scrollAfter(); });
   setupShell();
   render();
+  if (state.scrollTx) scrollAfter();
 })();
